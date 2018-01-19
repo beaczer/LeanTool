@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Lean.Controls.AnalyseRow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lean.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+        </Style>
+    </UserControl.Resources>
+        
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+        <Label></Label>
+            <TextBlock Text="{Binding My}" ></TextBlock>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <TextBox></TextBox>
+            <Button>Add Row</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
