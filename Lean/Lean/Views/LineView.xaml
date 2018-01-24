@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Lean.LineView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lean"
@@ -8,18 +9,34 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    
     <Grid>
         <Grid.Resources>
+            <ObjectDataProvider x:Key="enumValues"
+                 MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="local:TypeOfOperation"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
             <Style TargetType="TextBox">
-                <Setter Property="Background" Value="Yellow"/>
-                <Setter Property="Width" Value="100"/>
-                <Setter Property="Height" Value="30"/>
+                <Setter Property="Background" Value="LightGreen"/>
+                <Setter Property="MinWidth" Value="100"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="Margin" Value="2,2,2,2"/>
+            </Style>
+            <Style TargetType="TextBox" x:Key="TimeTextBoxStyle">
+                <Setter Property="Background" Value="GreenYellow"/>
+                <Setter Property="MinWidth" Value="50"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="Margin" Value="2,2,2,2"/>
+            </Style>
+            <Style TargetType="ComboBox" >
+                <Setter Property="Background" Value="LawnGreen"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
         </Grid.Resources>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
         <StackPanel>
             <StackPanel x:Name="stackPanel" Orientation="Vertical">
                 <ItemsControl x:Name="listTextBlock">
@@ -35,13 +52,25 @@
             <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding MyCollection}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBox cal:Message.Attach="[Event TextChanged]=[Action TextChange($dataContext)]"></TextBox>
+                        <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding OperationId}" ></Label>
+                        <TextBox Text="{Binding OperationName}" cal:Message.Attach="[Event TextChanged]=[Action TextChange($dataContext)]"></TextBox>
+                        <ComboBox ItemsSource="{Binding Source={StaticResource enumValues}}" SelectedItem="{Binding ElementaryOperationType}"></ComboBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[0]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[1]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[2]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[3]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[4]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[5]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[6]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[7]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[8]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[9]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <TextBox cal:Message.Attach="[Event TextChanged] = [Action TextChange($dataContext)]" />
-        </StackPanel>
-        <StackPanel Grid.Column="1">
             <Button x:Name="AddData" >Analizuj cykle</Button>
         </StackPanel>
         

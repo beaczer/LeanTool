@@ -11,8 +11,8 @@ namespace Lean
 {
     public class LineViewModel:Screen
     {
-        private BindableCollection<string> myCollection = new BindableCollection<string>();
-        public BindableCollection<string> MyCollection
+        private BindableCollection<ElementaryOperation> myCollection = new BindableCollection<ElementaryOperation>();
+        public BindableCollection<ElementaryOperation> MyCollection
         {
             get
             {
@@ -31,7 +31,12 @@ namespace Lean
         }
         public void AddData()
         {
-            MyCollection.Add("Uzupełnij");
+            MyCollection.Add(new ElementaryOperation()
+            {   OperationId = MyCollection.Count + 1,
+                OperationName = "Opis operacji",
+                ElementaryOperationType = TypeOfOperation.Niezdefiniowane,
+                
+            });
             
         }
         public void TextChange(object dc)
