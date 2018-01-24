@@ -39,6 +39,12 @@ namespace Lean
             });
             
         }
+        public void CalculateTime(object time,object time2, int time3, string time7)
+        {
+            //time7- wpisany czas
+            int index= (time2 as ElementaryOperation).OperationId;
+            (time2 as ElementaryOperation).ElementaryOperationTimes[index] = new Classes.ElemTime(index,double.Parse(time7));
+        }
         public void TextChange(object dc)
         {
 

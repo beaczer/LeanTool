@@ -30,48 +30,89 @@
                 <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
+            <!--<Style TargetType="TextBox" x:Key="DataTimeTextBoxStyle">
+                <Setter Property="Background" Value="Honeydew"/>
+                <Setter Property="MinWidth" Value="50"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="Margin" Value="2,2,2,2"/>
+            </Style>-->
             <Style TargetType="ComboBox" >
                 <Setter Property="Background" Value="LawnGreen"/>
                 <Setter Property="MinWidth" Value="120"/>
                 <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
+            <Style TargetType="TextBlock" x:Key="paramTextBlock">
+                <Setter Property="Margin" Value="2,2,2,2"/>
+                <Setter Property="Background" Value="LightSeaGreen"/>
+                <Setter Property="MinWidth" Value="50"/>
+                <Setter Property="MinHeight" Value="30"/>
+                
+            </Style>
         </Grid.Resources>
         <StackPanel>
-            <StackPanel x:Name="stackPanel" Orientation="Vertical">
-                <ItemsControl x:Name="listTextBlock">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Content="ksdmksdmf"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-            <Button x:Name="AddOperation" Grid.Column="0" 
-                    cal:Message.Attach="[Event Click]=[Action AddOperation($dataContext)]">Add</Button>
-            <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding MyCollection}">
+            <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding MyCollection}" HorizontalContentAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                         <Label Content="{Binding OperationId}" ></Label>
                         <TextBox Text="{Binding OperationName}" cal:Message.Attach="[Event TextChanged]=[Action TextChange($dataContext)]"></TextBox>
                         <ComboBox ItemsSource="{Binding Source={StaticResource enumValues}}" SelectedItem="{Binding ElementaryOperationType}"></ComboBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[0]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[1]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[2]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[3]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[4]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[5]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[6]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[7]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[8]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[9]}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[0].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"
+                                     >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="LostFocus">
+                                        <cal:ActionMessage MethodName="CalculateTime">
+                                            <cal:Parameter Value="$this" />
+                                            <cal:Parameter Value="$dataContext" />
+                                            <cal:Parameter Value="{Binding ElementaryOperationTimes[0].ElemId}" />
+                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=TextBox}, Path=Text}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <TextBox    Text="{Binding ElementaryOperationTimes[1].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="LostFocus">
+                                        <cal:ActionMessage MethodName="CalculateTime">
+                                            <cal:Parameter Value="$this"  />
+                                            <cal:Parameter Value="$dataContext" />
+                                            <cal:Parameter Value="{Binding ElementaryOperationTimes[1].ElemId}" />
+                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"  />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[2].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="LostFocus">
+                                        <cal:ActionMessage MethodName="CalculateTime">
+                                            <cal:Parameter Value="$this"  />
+                                            <cal:Parameter Value="$dataContext" />
+                                            <cal:Parameter Value="{Binding ElementaryOperationTimes[2].ElemId}" />
+                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[3].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[4].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[5].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[6].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[7].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[8].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBox Text="{Binding ElementaryOperationTimes[9].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}"></TextBox>
+                            <TextBlock Text="{Binding MinTime}" Style="{StaticResource paramTextBlock}"   />
+                            <TextBlock Text="{Binding MaxTime}" Style="{StaticResource paramTextBlock}"  />
+                            <TextBlock Text="{Binding Stability}"  Style="{StaticResource paramTextBlock}" />
+                            <TextBlock Text="{Binding AvgTime}"  Style="{StaticResource paramTextBlock}" />
+
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <TextBox cal:Message.Attach="[Event TextChanged] = [Action TextChange($dataContext)]" />
-            <Button x:Name="AddData" >Analizuj cykle</Button>
+            <Button x:Name="AddData">Dodaj operacje</Button>
         </StackPanel>
         
     </Grid>
