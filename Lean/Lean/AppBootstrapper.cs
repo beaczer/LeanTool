@@ -16,6 +16,7 @@ namespace Lean {
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
             container.PerRequest<IShell, ShellViewModel>();
+            
         }
 
         protected override object GetInstance(Type service, string key) {

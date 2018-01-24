@@ -1,12 +1,49 @@
-﻿<UserControl x:Class="Lean.Views.LineView"
+﻿<UserControl x:Class="Lean.LineView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Lean.Views"
+             xmlns:local="clr-namespace:Lean"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="Yellow"/>
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Height" Value="30"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <StackPanel x:Name="stackPanel" Orientation="Vertical">
+                <ItemsControl x:Name="listTextBlock">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="ksdmksdmf"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+            <Button x:Name="AddOperation" Grid.Column="0" 
+                    cal:Message.Attach="[Event Click]=[Action AddOperation($dataContext)]">Add</Button>
+            <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding MyCollection}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox cal:Message.Attach="[Event TextChanged]=[Action TextChange($dataContext)]"></TextBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBox cal:Message.Attach="[Event TextChanged] = [Action TextChange($dataContext)]" />
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Button x:Name="AddData" >Analizuj cykle</Button>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

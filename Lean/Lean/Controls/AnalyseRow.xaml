@@ -8,18 +8,38 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="Width" Value="200"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="2,2,2,2"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2,2,2,2"/>
+            <Setter Property="MinWidth" Value="50"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="2,2,2,2"/>
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="2,2,2,2"/>
+            <Setter Property="MinWidth" Value="20"/>
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Width" Value="20"/>
+            <Setter Property="MinWidth" Value="20"/>
             <Setter Property="Margin" Value="5,5,5,5"/>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness"  Value="1"/>
         </Style>
     </UserControl.Resources>
         
     <Grid>
-        <StackPanel Orientation="Horizontal">
-        <Label></Label>
-            <TextBlock Text="{Binding My}" ></TextBlock>
+        <Border>
+        <StackPanel Orientation="Horizontal" >
+            <Label></Label>
+            <TextBlock Text="{Binding OperationDescription}" ></TextBlock>
+            <ComboBox ItemsSource="{Binding Path= TypeOfOperation}"></ComboBox>
             <TextBox></TextBox>
             <TextBox></TextBox>
             <TextBox></TextBox>
@@ -30,7 +50,7 @@
             <TextBox></TextBox>
             <TextBox></TextBox>
             <TextBox></TextBox>
-            <Button>Add Row</Button>
         </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

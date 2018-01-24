@@ -1,0 +1,81 @@
+<Window x:Class="Lean.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:view="clr-namespace:Lean"
+        xmlns:cont="clr-namespace:Lean.Controls">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,5,5,5"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <MediaElement Grid.Row="1" Grid.Column="1"></MediaElement>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
+            <Button>
+                <TextBlock>PLAY</TextBlock>
+            </Button>
+            <Button>
+                <TextBlock>STOP</TextBlock>
+            </Button>
+            <Button>
+                <TextBlock>>></TextBlock>
+            </Button>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+            <Button>
+                Load Film
+            </Button>
+            <Label>Time</Label>
+            <Label>00:00:00</Label>
+           
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label>L.P</Label>
+                    <Label>Operation Name</Label>
+                    <Label>Operation Type</Label>
+                    <GroupBox>
+                        <StackPanel Orientation="Horizontal">
+                        <Label>1</Label>
+                        <Label>2</Label>
+                        <Label>3</Label>
+                        <Label>4</Label>
+                        <Label>5</Label>
+                        <Label>6</Label>
+                        <Label>7</Label>
+                        <Label>8</Label>
+                        <Label>9</Label>
+                        <Label>10</Label>
+                        </StackPanel>
+                    </GroupBox>
+                    <Label>Min</Label>
+                    <Label>Max</Label>
+                    <Label>Avr</Label>
+                    <Label>Mod</Label>
+                    <Label>Zm</Label>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                    </StackPanel>
+                <ContentControl x:Name="DataCalculetingVM"/>
+
+            </StackPanel>
+            </StackPanel>
+        
+    </Grid>
+
+</Window>
