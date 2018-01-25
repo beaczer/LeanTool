@@ -32,22 +32,26 @@ namespace Lean
         public void AddData()
         {
             MyCollection.Add(new ElementaryOperation()
-            {   OperationId = MyCollection.Count + 1,
+            {   OperationId = MyCollection.Count,
                 OperationName = "Opis operacji",
                 ElementaryOperationType = TypeOfOperation.Niezdefiniowane,
                 
             });
             
         }
-        public void CalculateTime(object time,object time2, int time3, string time7)
-        {
-            //time7- wpisany czas
-            int index= (time2 as ElementaryOperation).OperationId;
-            (time2 as ElementaryOperation).ElementaryOperationTimes[index] = new Classes.ElemTime(index,double.Parse(time7));
-        }
-        public void TextChange(object dc)
-        {
+        public void CalculateTime(ElementaryOperation oper, string time7)
+            {
+
+            if (oper is ElementaryOperation)
+            {
+                int index = oper.OperationId;
+                //oper.ElementaryOperationTimes[index].Time = double.Parse(time7);
+                oper.MaxTime = oper.ElementaryOperationTimes.Max(x => x.Time);
+                oper.MinTime = oper.ElementaryOperationTimes.Min(x => x.Time);
+                oper.AvgTime = oper.ElementaryOperationTimes.Average(x => x.Time);
+            }
 
         }
+        
     }
 }

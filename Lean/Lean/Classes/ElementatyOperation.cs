@@ -9,16 +9,29 @@ using Lean.Classes;
 namespace Lean
 {
     public enum TypeOfOperation {Niezdefiniowane, Czekanie, Kontrola, ValueAdded,Transport }
-    public class ElementaryOperation :PropertyChangedBase
+
+    public class ElementaryOperation :Screen
     {
         public int OperationId { get; set; }
-        public string OperationName { get; set; }
+        private string operationName;
+        public string OperationName
+        {
+            get
+            {
+                return operationName;
+            }
+            set
+            {
+                operationName = value;
+                NotifyOfPropertyChange(() => OperationName);
+            }
+        }
         private BindableCollection<ElemTime> elementaryOperationTimes { get; set; } = new BindableCollection<ElemTime>();
         public BindableCollection<ElemTime> ElementaryOperationTimes
         {
             get
             {
-                return elementaryOperationTimes;
+                    return elementaryOperationTimes;
             }
             set
             {
@@ -38,7 +51,7 @@ namespace Lean
             {
                 return avgTime;
             }
-            private set
+             set
             {
                 avgTime = ElementaryOperationTimes.Select(x=>x.Time).Average();
                 NotifyOfPropertyChange(() => AvgTime);
@@ -51,7 +64,7 @@ namespace Lean
             {
                 return minTime;
             }
-            private set
+             set
             {
                 minTime = ElementaryOperationTimes.Select(x=>x.Time).Min();
                 NotifyOfPropertyChange(() => MinTime);
@@ -64,7 +77,7 @@ namespace Lean
             {
                 return maxTime;
             }
-            private set
+            set
             {
                 maxTime = ElementaryOperationTimes.Select(x=>x.Time).Max();
                 NotifyOfPropertyChange(() => MaxTime);
@@ -91,9 +104,9 @@ namespace Lean
             ElementaryOperationTimes.Add(new ElemTime(2));
             ElementaryOperationTimes.Add(new ElemTime(3));
             ElementaryOperationTimes.Add(new ElemTime(4));
-            ElementaryOperationTimes.Add(new ElemTime(5,10));
+            ElementaryOperationTimes.Add(new ElemTime(5));
             ElementaryOperationTimes.Add(new ElemTime(6));
-            ElementaryOperationTimes.Add(new ElemTime(7,4));
+            ElementaryOperationTimes.Add(new ElemTime(7));
             ElementaryOperationTimes.Add(new ElemTime(8));
             ElementaryOperationTimes.Add(new ElemTime(9));
             MinTime = ElementaryOperationTimes.Select(x=>x.Time).Min();
