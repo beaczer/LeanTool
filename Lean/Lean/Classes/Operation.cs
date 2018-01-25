@@ -8,8 +8,8 @@ namespace Lean.Classes
 {
     public class Operation
     {
-        public int LineId { get; private set; }
-        public string LineName { get; private set; }
-        public List<ElementaryOperation> listOfOperation {get;set;}
+        public int OperationId { get; private set; }
+        public string OperationName { get; private set; }
+        public List<Operation> listOfOperation {get;set;}
     }
 }

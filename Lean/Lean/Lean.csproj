@@ -73,9 +73,11 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Classes\ElemTime.cs" />
+    <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\Operation.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Classes\ElementatyOperation.cs" />
+    <Compile Include="ViewModels\LineManagerViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -85,9 +87,16 @@
       <DependentUpon>AnalyseRow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Compile Include="Views\LineManagerView.xaml.cs">
+      <DependentUpon>LineManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LineView.xaml.cs">
       <DependentUpon>LineView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\LineManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

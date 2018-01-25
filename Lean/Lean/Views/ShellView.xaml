@@ -15,7 +15,7 @@
             <RowDefinition Height="0.1"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.1"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -38,44 +38,20 @@
             <Button>
                 Load Film
             </Button>
+            <Button>
+                Meneger Linii
+            </Button>
             <Label>Time</Label>
             <Label>00:00:00</Label>
-           
+            <Button cal:Message.Attach="[Event Click]=[Action ShowManager]">Manager Linii
+            </Button>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label>L.P</Label>
-                    <Label>Operation Name</Label>
-                    <Label>Operation Type</Label>
-                    <GroupBox>
-                        <StackPanel Orientation="Horizontal">
-                        <Label>1</Label>
-                        <Label>2</Label>
-                        <Label>3</Label>
-                        <Label>4</Label>
-                        <Label>5</Label>
-                        <Label>6</Label>
-                        <Label>7</Label>
-                        <Label>8</Label>
-                        <Label>9</Label>
-                        <Label>10</Label>
-                        </StackPanel>
-                    </GroupBox>
-                    <Label>Min</Label>
-                    <Label>Max</Label>
-                    <Label>Avr</Label>
-                    <Label>Mod</Label>
-                    <Label>Zm</Label>
-                </StackPanel>
-                
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                     </StackPanel>
                 <ContentControl x:Name="DataCalculetingVM"/>
-
-            </StackPanel>
-            </StackPanel>
-        
+            
+        </StackPanel>
     </Grid>
 
 </Window>

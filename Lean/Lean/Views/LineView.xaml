@@ -9,6 +9,7 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <ScrollViewer MinHeight="400">
     <Grid>
         <Grid.Resources>
             <ObjectDataProvider x:Key="enumValues"
@@ -47,131 +48,155 @@
                 <Setter Property="MinHeight" Value="30"/>
              </Style>
             <Style TargetType="Label">
-                <Setter Property="MinWidth" Value="30"/>
-                
+                <Setter Property="MinWidth" Value="50"/>
+                <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
         </Grid.Resources>
         <StackPanel>
-            <Border BorderThickness="1" BorderBrush="Black" Margin="2,2,2,2">
-                <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding MyCollection}" HorizontalContentAlignment="Stretch">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label MinWidth="50">L.P</Label>
+                    <Label MinWidth="200">Nazwa operacji</Label>
+                    <Label MinWidth="150">Typ operacji</Label>
                         <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding OperationId}" ></Label>
-                        <TextBox Text="{Binding OperationName}" ></TextBox>
-                        <ComboBox ItemsSource="{Binding Source={StaticResource enumValues}}" SelectedItem="{Binding ElementaryOperationType}"></ComboBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[0].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=TextBox}, Path=Text}" />
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[1].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[2].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[3].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[4].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[5].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[6].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[7].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[8].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBox Text="{Binding ElementaryOperationTimes[9].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="LostFocus">
-                                        <cal:ActionMessage MethodName="CalculateTime">
-                                            <cal:Parameter Value="$dataContext" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
-                            <TextBlock Text="{Binding MinTime}" Style="{StaticResource paramTextBlock}"   />
-                            <TextBlock Text="{Binding MaxTime}" Style="{StaticResource paramTextBlock}"  />
-                            <TextBlock Text="{Binding Stability}"  Style="{StaticResource paramTextBlock}" />
-                            <TextBlock Text="{Binding AvgTime}"  Style="{StaticResource paramTextBlock}" />
-
+                            <Label MinWidth="50">1</Label>
+                            <Label MinWidth="50">2</Label>
+                            <Label MinWidth="50">3</Label>
+                            <Label MinWidth="50">4</Label>
+                            <Label MinWidth="50">5</Label>
+                            <Label MinWidth="50">6</Label>
+                            <Label MinWidth="50">7</Label>
+                            <Label MinWidth="50">8</Label>
+                            <Label MinWidth="50">9</Label>
+                            <Label MinWidth="50">10</Label>
                         </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            </Border>
-            <Button x:Name="AddData">Dodaj operacje</Button>
+                    
+                    <Label>Min</Label>
+                    <Label>Max</Label>
+                    <Label>Śr</Label>
+                    <Label>Zm</Label>
+                </StackPanel>
+                
+                <Border BorderThickness="1" BorderBrush="Black" Margin="2,2,2,2">
+                    <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding MyCollection}" HorizontalContentAlignment="Stretch">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding OperationId}" ></Label>
+                                    <TextBox Text="{Binding OperationName}" ></TextBox>
+                                    <ComboBox ItemsSource="{Binding Source={StaticResource enumValues}}" SelectedItem="{Binding ElementaryOperationType}"></ComboBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[0].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=TextBox}, Path=Text}" />
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[1].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[2].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[3].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[4].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[5].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[6].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[7].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[8].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBox Text="{Binding ElementaryOperationTimes[9].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <cal:ActionMessage MethodName="CalculateTime">
+                                                    <cal:Parameter Value="$dataContext" />
+                                                    <cal:Parameter Value="{Binding RelativeSource={RelativeSource  AncestorType=TextBox}, Path=Text}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <TextBlock Text="{Binding MinTime}" Style="{StaticResource paramTextBlock}"   />
+                                    <TextBlock Text="{Binding MaxTime}" Style="{StaticResource paramTextBlock}"  />
+                                    <TextBlock Text="{Binding Stability}"  Style="{StaticResource paramTextBlock}" />
+                                    <TextBlock Text="{Binding AvgTime}"  Style="{StaticResource paramTextBlock}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+                <Button x:Name="AddData">Dodaj operacje</Button>
+            </StackPanel>
         </StackPanel>
-        
     </Grid>
+    </ScrollViewer>
 </UserControl>
