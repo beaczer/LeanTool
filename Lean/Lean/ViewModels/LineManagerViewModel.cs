@@ -14,6 +14,15 @@ namespace Lean
         public void AddLine(string Text)
         {
             Line line = new Line(Text);
+            ListOfLine.Add(line);
+        }
+        public void RemoveLine(object line)
+        {
+            if (line is Line)
+            {
+                ListOfLine.Remove(ListOfLine.Where(x => x.LineName == (line as Line).LineName).First());
+            }
+            
         }
 
     }

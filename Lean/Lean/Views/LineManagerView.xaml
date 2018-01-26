@@ -35,18 +35,29 @@
                     </i:Interaction.Triggers>
                 </Button>
                 <TextBox x:Name="LineNameTxtBx" Text="Wpisz nazwę nowej linii" ></TextBox>
-             <Button Content="Usuń linie"></Button>
+             <Button Content="Usuń linie">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="RemoveLine">
+                                <cal:Parameter Value="{Binding ElementName=listViewLine, Path=SelectedItem}"/>
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
-            <ListView ></ListView>
+            <ListView x:Name="listViewLine" ItemsSource="{Binding ListOfLine}" DisplayMemberPath="LineName"  ></ListView>
         </StackPanel>
         <StackPanel Grid.Row="1">
+            <Expander IsEnabled="">
             <StackPanel Orientation="Horizontal">
                 <Button Content="Dodaj operację"></Button>
                 <TextBox Text="Wpisz nazwę nowej operacji" ></TextBox>
                 <Button Content="Usuń operacje"></Button>
             </StackPanel>
             <ListView ></ListView>
+            </Expander>
         </StackPanel>
+        
         <Button Grid.Row="2">Zamknij okno</Button>
     </Grid>
 </UserControl>
