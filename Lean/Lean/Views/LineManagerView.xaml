@@ -6,15 +6,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lean"
+             xmlns:conv="clr-namespace:Lean.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <Grid Margin="0,3,0,-3">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.Resources>
+            <conv:IsVisibileConv x:Key="visibConverter"/>
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
@@ -45,19 +47,39 @@
                     </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
-            <ListView x:Name="listViewLine" ItemsSource="{Binding ListOfLine}" DisplayMemberPath="LineName"  ></ListView>
+            <ListView x:Name="listViewLine" ItemsSource="{Binding ListOfLine}" DisplayMemberPath="LineName"
+                      cal:Message.Attach="[Event SelectionChanged]=[Action TellCurrentLine($this)]"></ListView>
         </StackPanel>
-        <StackPanel Grid.Row="1">
-            <Expander IsEnabled="">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Dodaj operację"></Button>
-                <TextBox Text="Wpisz nazwę nowej operacji" ></TextBox>
-                <Button Content="Usuń operacje"></Button>
+            <Expander Grid.Row="1"  
+                      IsEnabled="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  visibConverter}}"
+                      IsExpanded="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  visibConverter}}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                <Button Content="Dodaj operację">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <cal:ActionMessage MethodName="AddOperation">
+                                    <cal:Parameter Value="{Binding ElementName=OperationNameTxtBx, Path=Text}"/>
+                                </cal:ActionMessage>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                <TextBox Name="OperationNameTxtBx" Text="Wpisz nazwę nowej operacji" ></TextBox>
+                <Button Content="Usuń operacje">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <cal:ActionMessage MethodName="RemoveOperation">
+                                    <cal:Parameter Value="{Binding ElementName=listViewLine, Path=SelectedIndex}"/>
+                                </cal:ActionMessage>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
             </StackPanel>
-            <ListView ></ListView>
-            </Expander>
-        </StackPanel>
-        
+                <ListView ItemsSource="{Binding CurrentLine.ListOfOperation }" 
+                          DisplayMemberPath="OperationName"
+                          cal:Message.Attach="[Event SelectionChanged]=[Action TellCurrentOperation($this)]"></ListView>
+            </StackPanel>
+        </Expander>
         <Button Grid.Row="2">Zamknij okno</Button>
     </Grid>
 </UserControl>

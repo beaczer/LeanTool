@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 
 namespace Lean.Classes
 {
@@ -10,6 +11,10 @@ namespace Lean.Classes
     {
         public int OperationId { get; private set; }
         public string OperationName { get; private set; }
-        public List<Operation> listOfOperation {get;set;}
+        public BindableCollection<Operation> ListOfOperation { get; set; } = new BindableCollection<Operation>();
+        public Operation(string name)
+        {
+            OperationName = name;
+        }
     }
 }
