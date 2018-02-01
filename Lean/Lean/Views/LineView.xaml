@@ -78,7 +78,7 @@
                 </StackPanel>
                 
                 <Border BorderThickness="1" BorderBrush="Black" Margin="2,2,2,2">
-                    <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding MyCollection}" HorizontalContentAlignment="Stretch">
+                    <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding Operation}" HorizontalContentAlignment="Stretch">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

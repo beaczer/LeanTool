@@ -11,17 +11,19 @@ namespace Lean
 {
     public class LineViewModel:Screen
     {
-        private BindableCollection<ElementaryOperation> myCollection = new BindableCollection<ElementaryOperation>();
-        public BindableCollection<ElementaryOperation> MyCollection
+        
+
+        private BindableCollection<ElementaryOperation> operation = new BindableCollection<ElementaryOperation>();
+        public BindableCollection<ElementaryOperation> Operation
         {
             get
             {
-                return myCollection;
+                return operation;
             }
             set
             {
-                myCollection = value;
-                NotifyOfPropertyChange(() => MyCollection);
+                operation = value;
+                NotifyOfPropertyChange(() => Operation);
             }
         }
         public List<TextBlock> listTextBlock { get; set; } = new List<TextBlock>();
@@ -31,8 +33,8 @@ namespace Lean
         }
         public void AddData()
         {
-            MyCollection.Add(new ElementaryOperation()
-            {   OperationId = MyCollection.Count,
+            Operation.Add(new ElementaryOperation()
+            {   OperationId = Operation.Count,
                 OperationName = "Opis operacji",
                 ElementaryOperationType = TypeOfOperation.Niezdefiniowane,
                 

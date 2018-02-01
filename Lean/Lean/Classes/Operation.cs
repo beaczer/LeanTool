@@ -11,7 +11,7 @@ namespace Lean.Classes
     {
         public int OperationId { get; private set; }
         public string OperationName { get; private set; }
-        public BindableCollection<Operation> ListOfOperation { get; set; } = new BindableCollection<Operation>();
+        public BindableCollection<ElementaryOperation> ListOfOperation { get; set; } = new BindableCollection<ElementaryOperation>();
         public Operation(string name)
         {
             OperationName = name;
