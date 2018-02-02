@@ -9,19 +9,21 @@
         xmlns:conv="clr-namespace:Lean.Converters"
         WindowState="Maximized">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="5,5,5,5"/>
-        </Style>
         <conv:IsVisibileConv x:Key="visibConverter"/>
         <Style TargetType="telerik:RadButton" BasedOn="{StaticResource RadButtonStyle}" >
-            <Setter Property="Margin" Value="2,2,2,2"/>
-            <Setter Property="MinWidth" Value="100"/>
-            <Setter Property="MinHeight" Value="50"/>
-            <Setter Property="Background" Value="Red"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="MinHeight" Value="30"/>
+        </Style>
+        <Style TargetType="TextBox"  >
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="MinHeight" Value="30"/>
         </Style>
         <Style TargetType="ListView">
-            <Setter Property="Margin" Value="2,2,2,2"/>
-            <Setter Property="MinHeight" Value="200"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="MinHeight" Value="100"/>
+            <Setter Property="MinWidth" Value="50"/>
         </Style>
         <Style TargetType="Border">
             <Setter Property="BorderBrush" Value="Black"/>
@@ -29,14 +31,14 @@
             <Setter Property="Margin" Value="2"/>
         </Style>
         <Style x:Key="MenuBtn" TargetType="telerik:RadButton" BasedOn="{StaticResource RadButtonStyle}">
-            <Setter Property="Width"  Value="30"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width"  Value="40"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="2"/>
         </Style>
     </Window.Resources>
-    <Grid Background="White">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="1*"/>
@@ -54,6 +56,14 @@
                 <telerik:RadRibbonTab Header="Home">
                     <telerik:RadRibbonGroup Header="Plik">
                         <telerik:RadRibbonButton Text="Zaladuj video" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="LoadVideo">
+                                        <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+                                        <cal:Parameter Value="{Binding ElementName=btnPlay}"/>
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <Image Source="/Lean;component/icons/loadFile.png"  />
                         </telerik:RadRibbonButton>
                         <telerik:RadRibbonButton Text="Zapisz analize" >
@@ -65,15 +75,12 @@
             </telerik:RadRibbonView.Items>
         </telerik:RadRibbonView>
         <telerik:RadExpander Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" ExpandDirection="Right" Header="Line">
-            <Grid Margin="0,3,0,-3">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid.Resources>
-                    
-                </Grid.Resources>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <telerik:RadButton Content="Dodaj linie">
@@ -85,7 +92,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </telerik:RadButton>
-                        <TextBox x:Name="LineNameTxtBx" Text="Wpisz nazw nowej linii" ></TextBox>
+                        <TextBox x:Name="LineNameTxtBx" Text="NazwaLinii" ></TextBox>
                         <telerik:RadButton Content="Usu linie">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -113,7 +120,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </telerik:RadButton>
-                            <TextBox Name="OperationNameTxtBx" Text="Wpisz nazw nowej operacji" ></TextBox>
+                            <TextBox Name="OperationNameTxtBx" Text="NazwaOperacji" ></TextBox>
                             <Button Content="Usu operacje">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
@@ -132,13 +139,15 @@
             </Grid>
         </telerik:RadExpander>
         <Border Grid.Row="1" Grid.Column="2">
+            <telerik:RadTabControl>
+                <telerik:RadTabItem Header="Analia">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5*"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
-                    <telerik:RadButton Style="{StaticResource MenuBtn}">
+                    <telerik:RadButton x:Name="btnPlay" Style="{StaticResource MenuBtn}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <cal:ActionMessage MethodName="PlayVideo">
@@ -147,6 +156,18 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <Image Source="/Lean;component/icons/play1.png"/>
+                    </telerik:RadButton>
+                    <telerik:RadButton x:Name="btnPlayA" Style="{StaticResource MenuBtn}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <cal:ActionMessage MethodName="StartAnalyse">
+                                    <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+                                </cal:ActionMessage>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Grid>
+                            <Image Source="/Lean;component/icons/play1.png"/>
+                        </Grid>
                     </telerik:RadButton>
                     <telerik:RadButton Style="{StaticResource MenuBtn}">
                         <Image Source="/Lean;component/icons/pause1.png"/>
@@ -165,35 +186,33 @@
                 </StackPanel>
                 <MediaElement x:Name="MediaPlayer" LoadedBehavior="Manual" />
             </Grid>
+                </telerik:RadTabItem>
+            </telerik:RadTabControl>
         </Border>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="3">
-           
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-            <telerik:RadButton Content="Zaladuj Video">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <cal:ActionMessage MethodName="LoadVideo">
-                            <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
-                            <cal:Parameter Value="{Binding ElementName=btnPlay}"/>
-                        </cal:ActionMessage>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </telerik:RadButton>
-            <Label>Wybrana Linia:</Label>
-            <Label Content="{Binding CurrentLine.LineName}"></Label>
-            <Label>Time</Label>
-            <Label>Wybrana operacja</Label>
-            <Label Content="{Binding CurrentOperation.LineName}"></Label>
+
+            <Label>Linia:</Label>
+            <Label FontWeight="Bold" Content="{Binding CurrentLine.LineName}"></Label>
             
+            <Label>Operacja:</Label>
+            <Label FontWeight="Bold" Content="{Binding CurrentOperation.OperationName}"></Label>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-                    </StackPanel>
+        <telerik:RadTabControl Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+            <telerik:RadTabItem Header="Chronometraz">
                 <ContentControl x:Name="DataCalculetingVM"/>
-            
-        </StackPanel>
+            </telerik:RadTabItem>
+            <telerik:RadTabItem Header="Most">
+                
+            </telerik:RadTabItem>
+            <telerik:RadTabItem Header="Film">
+                
+            </telerik:RadTabItem>
+                
+        </telerik:RadTabControl>
+        
         <Border Grid.Row="3" Grid.ColumnSpan="4"></Border>
     </Grid>
-
+    
 </Window>

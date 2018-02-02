@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using Lean.Interface;
 
 namespace Lean.Classes
 {
-    public class Line:PropertyChangedBase
+    public class Line:PropertyChangedBase,ILine
     {
-        
         public string LineName { get; private set; }
-        public BindableCollection<Operation> ListOfOperation { get; set; } = new BindableCollection<Operation>();
+        public BindableCollection<IOperation> ListOfOperation { get; set; } = new BindableCollection<IOperation>();
         public Line(string name)
         {
             LineName = name;

@@ -1,30 +1,39 @@
 using Caliburn.Micro;
 using Lean.Classes;
 using Lean.Controls;
+using Lean.Interface;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
+using Telerik.Windows.Controls;
+
 
 namespace Lean {
-    public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell
+    public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell,IObserwowany
     {
+        List<IObserwator> ListOfObserwator = new List<IObserwator>();
         IWindowManager manager = new WindowManager();
         public LineViewModel DataCalculetingVM { get; private set; } = new LineViewModel();
         public LineManagerViewModel LineManagerVM { get; private set; } = new LineManagerViewModel();
 
         private BindableCollection<string> typeOfOperation = new BindableCollection<string> { "Kontrola", "Przejœcie", "Czekanie", "Operacja" };
-
         public BindableCollection<string> TypeOfOperation { get => typeOfOperation; set => typeOfOperation = value; }
+
         private List<AnalyseRow> ListOfRow = new List<AnalyseRow>();
         
         //public void ShowManager()
         //{
         //    manager.ShowDialog(LineManagerVM, null, null);
         //}
+        public ShellViewModel()
+        {
+            AddObserwatora(DataCalculetingVM);
+        }
         public BindableCollection<Line> ListOfLine { get; set; } = new BindableCollection<Line>();
-        private Operation currentOperation;
-        public Operation CurrentOperation
+        private IOperation currentOperation;
+        public IOperation CurrentOperation
         {
             get
             {
@@ -62,7 +71,6 @@ namespace Lean {
                 ListOfLine.Remove(l);
                 CurrentLine = null;
             }
-
         }
         public void TellCurrentLine(object obj)
         {
@@ -70,25 +78,39 @@ namespace Lean {
             {
                 CurrentLine = (obj as Line);
             }
-
-
         }
         public void TellCurrentOperation(object obj)
         {
             if (obj is Operation)
             {
                 CurrentOperation = (obj as Operation);
+                InformObserwator();
             }
-
         }
         public void AddOperation(string name)
         {
-            CurrentLine.ListOfOperation.Add(new Operation(name));
+            CurrentOperation = new Operation(name);
+            CurrentLine.ListOfOperation.Add(CurrentOperation);
         }
         public void RemoveOperation(int name)
         {
             CurrentLine.ListOfOperation.RemoveAt(name);
             CurrentOperation = null;
+        }
+        public void StartAnalyse(MediaElement me)
+        {
+            if (me!=null)
+            {
+                me.Play();
+            }
+        }
+        
+        public void PauseAnalyse(MediaElement me)
+        {
+            if (me != null)
+            {
+                me.Pause();
+            }
         }
         public void LoadVideo(object me, object btnPlay)
         {
@@ -125,8 +147,26 @@ namespace Lean {
                 me.Pause();
             }
         }
+        
+        public void AddObserwatora(IObserwator o)
+        {
+            ListOfObserwator.Add(o);
+        }
 
+        public void RemoveObserwator(IObserwator o)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void InformObserwator()
+        {
+            foreach (var item in ListOfObserwator)
+            {
+                item.Aktualizuj(CurrentOperation);
+            }
+        }
+
+        
     }
 
 }
