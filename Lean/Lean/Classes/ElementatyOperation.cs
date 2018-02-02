@@ -83,6 +83,34 @@ namespace Lean
                 NotifyOfPropertyChange(() => MaxTime);
             }
         }
+        private double freq;
+        public double Freq
+        {
+            get
+            {
+                return freq;
+            }
+            set
+            {
+                freq = value;
+                NotifyOfPropertyChange(() => Freq);
+            }
+        }
+        private double human;
+        public double Human
+        {
+            get
+            {
+                return human;
+            }
+            set
+            {
+                human = value;
+                NotifyOfPropertyChange(() => Human);
+            }
+        }
+
+
         private double stability;
         public double Stability
         {

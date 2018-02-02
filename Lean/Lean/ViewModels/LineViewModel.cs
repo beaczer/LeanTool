@@ -41,12 +41,15 @@ namespace Lean
         }
         public void AddData()
         {
+            if(CurrentOperation!=null)
+            { 
             CurrentOperation.ListOfOperation.Add(new ElementaryOperation()
             {
                 OperationId = CurrentOperation.ListOfOperation.Count,
                 OperationName = "Opis operacji",
                 ElementaryOperationType = TypeOfOperation.Niezdefiniowane,
             });
+            }
         }
         public void CalculateTime(ElementaryOperation oper, string time7)
         {

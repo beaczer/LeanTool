@@ -19,14 +19,20 @@
                     <x:Type TypeName="local:TypeOfOperation"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-            <Style TargetType="TextBox">
+            <Style TargetType="TextBox" x:Key="OperationDescription">
                 <Setter Property="Background" Value="LightGreen"/>
-                <Setter Property="MinWidth" Value="200"/>
+                <Setter Property="MinWidth" Value="100"/>
                 <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
-            <Style TargetType="TextBox" x:Key="TimeTextBoxStyle">
+                <Style TargetType="TextBox" x:Key="HumanDescription">
+                    <Setter Property="Background" Value="LightSeaGreen"/>
+                    <Setter Property="MinWidth" Value="50"/>
+                    <Setter Property="MinHeight" Value="30"/>
+                    <Setter Property="Margin" Value="2"/>
+                </Style>
+                <Style TargetType="TextBox" x:Key="TimeTextBoxStyle">
                 <Setter Property="Background" Value="GreenYellow"/>
                 <Setter Property="MinWidth" Value="50"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -57,7 +63,8 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label MinWidth="50">L.P</Label>
-                    <Label MinWidth="200">Nazwa operacji</Label>
+                        <Label MinWidth="50">Operator</Label>
+                        <Label MinWidth="100">Operacja</Label>
                     <Label MinWidth="150">Typ operacji</Label>
                         <StackPanel Orientation="Horizontal">
                             <Label MinWidth="50">1</Label>
@@ -73,16 +80,18 @@
                         </StackPanel>
                     <Label>Min</Label>
                     <Label>Max</Label>
-                    <Label>Śr</Label>
                     <Label>Zm</Label>
-                </StackPanel>
+                        <Label MinWidth="50">Częst</Label>
+                     <Label>Śr</Label>
+                    </StackPanel>
                 <Border BorderThickness="1" BorderBrush="Black" Margin="2,2,2,2">
                         <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding CurrentOperation.ListOfOperation}" HorizontalContentAlignment="Stretch">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="{Binding OperationId}" ></Label>
-                                    <TextBox Text="{Binding OperationName}" ></TextBox>
+                                    <TextBox Style="{StaticResource HumanDescription}" Text="{Binding Human}"></TextBox>
+                                    <TextBox Style="{StaticResource OperationDescription}" Text="{Binding OperationName}" ></TextBox>
                                     <telerik:RadComboBox ItemsSource="{Binding Source={StaticResource enumValues}}" SelectedItem="{Binding ElementaryOperationType}"></telerik:RadComboBox>
                                     <TextBox Text="{Binding ElementaryOperationTimes[0].Time}" Style="{StaticResource ResourceKey=TimeTextBoxStyle}">
                                         <i:Interaction.Triggers>
@@ -187,7 +196,8 @@
                                     <TextBlock Text="{Binding MinTime}" Style="{StaticResource paramTextBlock}"   />
                                     <TextBlock Text="{Binding MaxTime}" Style="{StaticResource paramTextBlock}"  />
                                     <TextBlock Text="{Binding Stability}"  Style="{StaticResource paramTextBlock}" />
-                                    <TextBlock Text="{Binding AvgTime}"  Style="{StaticResource paramTextBlock}" />
+                                        <TextBox  MinWidth="50" Text="{Binding Freq}" />
+                                        <TextBlock Text="{Binding AvgTime}"  Style="{StaticResource paramTextBlock}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
