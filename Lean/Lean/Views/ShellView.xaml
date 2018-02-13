@@ -9,7 +9,7 @@
         xmlns:conv="clr-namespace:Lean.Converters"
         WindowState="Maximized">
     <Window.Resources>
-        <conv:IsVisibileConv x:Key="visibConverter"/>
+        <conv:IsEnableConv x:Key="enableConverter"/>
         <Style TargetType="telerik:RadButton" BasedOn="{StaticResource RadButtonStyle}" >
             <Setter Property="Margin" Value="2"/>
             <Setter Property="MinWidth" Value="80"/>
@@ -60,7 +60,7 @@
                                 <i:EventTrigger EventName="Click">
                                     <cal:ActionMessage MethodName="LoadVideo">
                                         <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
-                                        <cal:Parameter Value="{Binding ElementName=btnPlay}"/>
+                                        <cal:Parameter Value="{Binding ElementName=btnPlayA}"/>
                                     </cal:ActionMessage>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
@@ -82,7 +82,7 @@
                                     </cal:ActionMessage>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                            <Image Source="/Lean;component/icons/.png"  />
+                            <Image Source="/Lean;component/icons/loadFile.png"  />
                         </telerik:RadRibbonButton>
                         <telerik:RadRibbonButton Text="SaveExcel" >
                             <Image Source="/Lean;component/icons/loadFile.png"  />
@@ -127,8 +127,8 @@
                       cal:Message.Attach="[Event SelectionChanged]=[Action TellCurrentLine($this)]"></ListView>
                 </StackPanel>
                 <Expander Grid.Row="1"  
-                      IsEnabled="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  visibConverter}}"
-                      IsExpanded="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  visibConverter}}">
+                      IsEnabled="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  enableConverter}}"
+                      IsExpanded="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  enableConverter}}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <telerik:RadButton Content="Dodaj operacj">
@@ -159,7 +159,7 @@
             </Grid>
         </telerik:RadExpander>
         <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
-            <telerik:RadTabControl>
+            <telerik:RadTabControl cal:Message.Attach="[Event SelectionChanged]=[Action InformObserwator]">
                 <telerik:RadTabItem Header="Analiza">
             <Grid>
                 <Grid.RowDefinitions>
@@ -171,44 +171,54 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                    <telerik:RadButton x:Name="btnPlay" Style="{StaticResource MenuBtn}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <cal:ActionMessage MethodName="PlayVideo">
-                                    <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
-                                </cal:ActionMessage>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Image Source="/Lean;component/icons/play1.png"/>
-                    </telerik:RadButton>
-                    <telerik:RadButton x:Name="btnPlayA" Style="{StaticResource MenuBtn}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <cal:ActionMessage MethodName="StartAnalyse">
-                                    <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
-                                </cal:ActionMessage>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Grid>
-                            <Image Source="/Lean;component/icons/play1.png"/>
-                        </Grid>
-                    </telerik:RadButton>
-                    <telerik:RadButton Style="{StaticResource MenuBtn}">
-                        <Image Source="/Lean;component/icons/pause1.png"/>
-                    </telerik:RadButton>
-                    <telerik:RadButton Style="{StaticResource MenuBtn}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <cal:ActionMessage MethodName="StopVideo">
-                                    <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
-                                </cal:ActionMessage>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Image Source="/Lean;component/icons/stop1.png"/>
-                    </telerik:RadButton>
-                    <telerik:RadButton Style="{StaticResource MenuBtn}"></telerik:RadButton>
-                </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                            <telerik:GroupBox Header="Analyse">
+                                <StackPanel Orientation="Horizontal">
+                                <telerik:RadButton x:Name="btnPlayA" Style="{StaticResource MenuBtn}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <cal:ActionMessage MethodName="StartAnalyse">
+                                                <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+                                            </cal:ActionMessage>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <Grid>
+                                        <Image Source="/Lean;component/icons/play1.png"/>
+                                    </Grid>
+                                </telerik:RadButton>
+
+                                    <telerik:RadButton x:Name="StopBtn" Style="{StaticResource MenuBtn}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <cal:ActionMessage MethodName="StopAnalyse">
+                                                    <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <Image Source="/Lean;component/icons/stop1.png"/>
+                                    </telerik:RadButton>
+                                    <telerik:GroupBox Header="Set Time">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label>MM:</Label>
+                                            <TextBox></TextBox>
+                                            <Label>SEC:</Label>
+                                            <TextBox></TextBox>
+                                            <Label>SSEC:</Label>
+                                            <TextBox></TextBox>
+                                        </StackPanel>
+                                    </telerik:GroupBox>
+                                </StackPanel>
+                            </telerik:GroupBox>
+                            
+                            
+                            <telerik:RadButton Style="{StaticResource MenuBtn}"></telerik:RadButton>
+                            <Label>StartTime</Label>
+                            <TextBlock Text="{Binding StartFT}"></TextBlock>
+                            <Label>StopTime</Label>
+                            <TextBlock Text="{Binding StopFT}"></TextBlock>
+                            <Label>Diff</Label>
+                            <TextBlock Text="{Binding DiffFT}"></TextBlock>
+                        </StackPanel>
 
                         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
                             <Label>Linia:</Label>
@@ -218,7 +228,7 @@
                         </StackPanel>
 
 
-                        <MediaElement x:Name="MediaPlayer" LoadedBehavior="Manual" Grid.Column="1" />
+                        <MediaElement x:Name="MediaPlayer" LoadedBehavior="Manual" Grid.Column="1" Margin="1,0,-0.667,49" Grid.RowSpan="2" />
                         <telerik:RadTabControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
                             <telerik:RadTabItem Header="Chronometraz">
                                 <ContentControl x:Name="DataCalculetingVM"/>
@@ -227,20 +237,23 @@
 
                             </telerik:RadTabItem>
                             <telerik:RadTabItem Header="Film">
-
+                                <ContentControl x:Name="FilmVM"/>
                             </telerik:RadTabItem>
 
                         </telerik:RadTabControl>
 
                     </Grid>
                 </telerik:RadTabItem>
-                <telerik:RadTabItem Header="Yamazumi">
-                    
+                <telerik:RadTabItem Header="Yamazumi" >
+                    <ContentControl x:Name="YamazumiVM"/>
                 </telerik:RadTabItem>
                 <telerik:RadTabItem Header="Balans">
+                    <ContentControl x:Name="BalansVM"/>
+                </telerik:RadTabItem>
+                <telerik:RadTabItem Header="Gantt">
 
                 </telerik:RadTabItem>
-                <telerik:RadTabItem Header="Ghant">
+                <telerik:RadTabItem Header="MSD">
 
                 </telerik:RadTabItem>
             </telerik:RadTabControl>

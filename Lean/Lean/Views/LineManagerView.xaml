@@ -16,7 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.Resources>
-            <conv:IsVisibileConv x:Key="visibConverter"/>
+            <conv:IsEnableConv x:Key="visibConverter"/>
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>

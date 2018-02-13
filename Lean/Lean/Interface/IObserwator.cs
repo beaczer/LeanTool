@@ -9,6 +9,6 @@ namespace Lean.Interface
 {
     public interface IObserwator
     {
-        void Aktualizuj(IOperation op);
+        void Aktualizuj(IOperation op,ILine line);
     }
 }

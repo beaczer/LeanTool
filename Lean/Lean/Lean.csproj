@@ -67,6 +67,11 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="Telerik.Windows.Controls, Version=2018.1.122.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Controls.Chart, Version=2018.1.122.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R1 2018\Binaries.NoXaml\WPF45\Telerik.Windows.Controls.Chart.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Charting, Version=2018.1.122.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
     <Reference Include="Telerik.Windows.Controls.Data, Version=2018.1.122.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R1 2018\Binaries.NoXaml\WPF45\Telerik.Windows.Controls.Data.dll</HintPath>
@@ -83,6 +88,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R1 2018\Binaries.NoXaml\WPF45\Telerik.Windows.Controls.RibbonView.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.VirtualGrid, Version=2018.1.122.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R1 2018\Binaries.NoXaml\WPF45\Telerik.Windows.Controls.VirtualGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2018.1.122.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
     <Reference Include="Telerik.Windows.Themes.Office2016">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R1 2018\Binaries.NoXaml\WPF45\Telerik.Windows.Themes.Office2016.dll</HintPath>
     </Reference>
@@ -102,17 +112,27 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Classes\Analyse.cs" />
+    <Compile Include="Classes\CycleAnalyse.cs" />
     <Compile Include="Classes\ElemTime.cs" />
+    <Compile Include="Classes\FilmCycleCollection.cs" />
+    <Compile Include="Classes\FilmData.cs" />
+    <Compile Include="Classes\FilmOperationCollection.cs" />
+    <Compile Include="Classes\FilmTimer.cs" />
+    <Compile Include="Classes\Operator.cs" />
+    <Compile Include="Converters\VisibleToHiddenConv.cs" />
     <Compile Include="Interface\ILine.cs" />
     <Compile Include="Interface\IOperation.cs" />
     <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\Operation.cs" />
-    <Compile Include="Converters\IsVisibileConv.cs" />
+    <Compile Include="Converters\IsEnableConv.cs" />
     <Compile Include="Interface\IAnalyse.cs" />
     <Compile Include="Interface\IObserwator.cs" />
     <Compile Include="Interface\IObserwowany.cs" />
+    <Compile Include="Interface\IOperator.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Classes\ElementatyOperation.cs" />
+    <Compile Include="ViewModels\BalansViewModel.cs" />
+    <Compile Include="ViewModels\FilmViewModel.cs" />
     <Compile Include="ViewModels\LineManagerViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -123,12 +143,30 @@
       <DependentUpon>AnalyseRow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Compile Include="ViewModels\YamazumiViewModel.cs" />
+    <Compile Include="Views\BalansView.xaml.cs">
+      <DependentUpon>BalansView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilmView.xaml.cs">
+      <DependentUpon>FilmView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LineManagerView.xaml.cs">
       <DependentUpon>LineManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LineView.xaml.cs">
       <DependentUpon>LineView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\YamazumiView.xaml.cs">
+      <DependentUpon>YamazumiView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\BalansView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FilmView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LineManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\YamazumiView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

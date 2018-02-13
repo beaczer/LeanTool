@@ -11,6 +11,19 @@ namespace Lean.Classes
     {
         public int OperationId { get; private set; }
         public string OperationName { get; private set; }
+        private double sum;
+        public double Sum
+        {
+            get
+            {
+                return sum;
+            }
+            set
+            {
+                sum = value;
+                NotifyOfPropertyChange(() => Sum);
+            }
+        }
         private BindableCollection<ElementaryOperation> listOfOperation;
         public BindableCollection<ElementaryOperation> ListOfOperation
         {
@@ -23,9 +36,18 @@ namespace Lean.Classes
             {
                 listOfOperation = value;
                 NotifyOfPropertyChange(() => ListOfOperation);
+                sum = sumAll();
             }
         } 
-        
+        private double sumAll()
+        {
+            double temp = 0;
+            foreach (var item in ListOfOperation)
+            {
+                temp += item.AvgTime;
+            }
+            return temp;
+        }
         public Operation(string name)
         {
             OperationName = name;

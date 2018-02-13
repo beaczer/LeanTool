@@ -4,30 +4,24 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Lean.Converters
 {
-    public class IsVisibileConv : IValueConverter
+    public class VisibleToHiddenConv : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null)
-            {
-                return true;
-            }
+            bool? zm = value as bool?;
+            if(zm==true)
+            return Visibility.Visible;
             else
-                return false;
+                return Visibility.Collapsed;
         }
-
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null)
-            {
-                return true;
-            }
-            else
-                return false;
+            return Visibility.Collapsed;
         }
     }
 }

@@ -84,7 +84,8 @@
                         <Label MinWidth="50">Częst</Label>
                      <Label>Śr</Label>
                     </StackPanel>
-                <Border BorderThickness="1" BorderBrush="Black" Margin="2,2,2,2">
+                <Border BorderThickness="1" BorderBrush="Black" Margin="2">
+                        <ScrollViewer VerticalAlignment="Stretch">
                         <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding CurrentOperation.ListOfOperation}" HorizontalContentAlignment="Stretch">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -202,7 +203,8 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </Border>
+                        </ScrollViewer>
+                    </Border>
                 <Button x:Name="AddData">Dodaj operacje</Button>
             </StackPanel>
         </StackPanel>

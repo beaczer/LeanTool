@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Lean.Interface
 {
-    public interface IObserwowany
+    public class IOperator
     {
 
-        void AddObserwatora(IObserwator o);
-        void RemoveObserwator(IObserwator o);
-        void InformObserwator();
     }
 }

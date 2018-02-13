@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="Lean.Views.FilmView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lean"
+             xmlns:conv="clr-namespace:Lean.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.Resources>
+            <conv:VisibleToHiddenConv x:Key="VisToColl"/>
+            <Style TargetType="TextBox" x:Key="OperationDescription">
+                <Setter Property="Background" Value="LightBlue"/>
+                <Setter Property="MinWidth" Value="200"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Margin" Value="2,2,2,2"/>
+            </Style>
+            <Style TargetType="TextBox" >
+                <Setter Property="Background" Value="LightBlue"/>
+                <Setter Property="MinWidth" Value="80"/>
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Margin" Value="2,2,2,2"/>
+            </Style>
+            <ObjectDataProvider x:Key="enumValues"
+                 MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="local:TypeOfOperation"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label>L.P</Label>
+                    <Label MinWidth="200">Opis</Label>
+                    <Label MinWidth="80">Start</Label>
+                    <Label MinWidth="80">Stop</Label>
+                    <Label MinWidth="80">Czas</Label>
+                </StackPanel>
+                <ItemsControl ItemsSource="{Binding FCycleCollection}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                            <Border BorderBrush="Black" BorderThickness="1">
+                                <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding FOperationCollection}" HorizontalContentAlignment="Stretch">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                                       
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="{Binding OperationId}" ></Label>
+                                                <TextBox Style="{StaticResource OperationDescription}" Text="{Binding OperationName}" ></TextBox>
+                                                <TextBox Text="{Binding FilmDataCollection.StartTime}"/>
+                                                <TextBox Text="{Binding FilmDataCollection.StopTime}"/>
+                                                <TextBox Text="{Binding FilmDataCollection.Time}"/>
+                                            </StackPanel>
+                                        
+                                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+                            </Border>
+                        </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+                <StackPanel Orientation="Horizontal">
+            <telerik:RadButton x:Name="AddData" Visibility="{Binding On, Converter={StaticResource VisToColl}}">
+                Dodaj Operacje
+            </telerik:RadButton>
+            <telerik:RadButton Visibility="{Binding On,Converter={StaticResource VisToColl}}">
+                Usun Operacje
+            </telerik:RadButton>
+            <telerik:RadButton x:Name="AddCycle">
+                Dodaj cykl
+            </telerik:RadButton>
+            <telerik:RadButton>
+                Usun cykl
+            </telerik:RadButton>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <ScrollViewer Grid.Column="1">
+            <DataGrid ItemsSource="{Binding CycleAnalyses}" AutoGenerateColumns="False" Margin="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id"/>
+                    <DataGridTextColumn Header="Description"/>
+                    <DataGridTemplateColumn Header="Cycle">
+                        <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                <StackPanel Orientation="Horizontal">
+                                    <ItemsControl ItemsSource="{Binding list}">
+                                    <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBox Text="{Binding .}"></TextBox>
+                                                </StackPanel>
+                                                
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                            
+
+
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Average"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

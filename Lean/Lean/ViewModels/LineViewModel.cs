@@ -62,7 +62,7 @@ namespace Lean
                 oper.AvgTime = oper.ElementaryOperationTimes.Average(x => x.Time);
             }
         }
-        public void Aktualizuj(IOperation op)
+        public void Aktualizuj(IOperation op, ILine line)
         {
             CurrentOperation = op;
         }
