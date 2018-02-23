@@ -13,6 +13,7 @@ namespace Lean
 {
     public class LineViewModel:Screen, IObserwator
     {
+        private ShellViewModel ShellVM { get; set; }
         private ILine currentLine;
         public ILine CurrentLine
         {
@@ -39,6 +40,10 @@ namespace Lean
                 NotifyOfPropertyChange(() => CurrentOperation);
             }
         }
+        public LineViewModel(ShellViewModel svm)
+        {
+            ShellVM = svm;
+        }
         public void AddData()
         {
             if(CurrentOperation!=null)
@@ -62,9 +67,10 @@ namespace Lean
                 oper.AvgTime = oper.ElementaryOperationTimes.Average(x => x.Time);
             }
         }
-        public void Aktualizuj(IOperation op, ILine line)
+        
+        public void Aktualizuj()
         {
-            CurrentOperation = op;
+            CurrentOperation=ShellVM.CurrentOperation;
         }
     }
 }

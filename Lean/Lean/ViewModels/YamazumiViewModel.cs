@@ -98,6 +98,7 @@ namespace Lean.ViewModels
     }
     public class YamazumiViewModel : Screen, IObserwator
     {
+        private ShellViewModel shellVM;
         private BindableCollection<Man> manSet = new BindableCollection<Man>();
         public BindableCollection<Man> ManSet
         {
@@ -124,12 +125,12 @@ namespace Lean.ViewModels
                 NotifyOfPropertyChange(() => CurrentLine);
             }
         }
-        
-        public void Aktualizuj(IOperation op, ILine line)
+        public YamazumiViewModel(ShellViewModel svm)
         {
-            CurrentLine = line;
-            PrepareDate();
+            shellVM = svm;
         }
+        
+       
         
         public void PrepareDate()
         {
@@ -168,6 +169,11 @@ namespace Lean.ViewModels
                 }
             }
             }
+        }
+        public void Aktualizuj()
+        {
+            CurrentLine = shellVM.CurrentLine;
+            PrepareDate();
         }
     }
 }

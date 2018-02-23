@@ -9,11 +9,6 @@ namespace Lean.Classes
 {
     public class FilmData
     {
-      public double StartTime
-        { get; set; }
 
-      public double StopTime { get; set; }
-
-      public double Time { get; set; }
     }
 }

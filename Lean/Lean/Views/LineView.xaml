@@ -20,42 +20,46 @@
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
             <Style TargetType="TextBox" x:Key="OperationDescription">
-                <Setter Property="Background" Value="LightGreen"/>
+                <Setter Property="Background" Value="LightBlue"/>
                 <Setter Property="MinWidth" Value="100"/>
                 <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
                 <Style TargetType="TextBox" x:Key="HumanDescription">
-                    <Setter Property="Background" Value="LightSeaGreen"/>
+                    <Setter Property="Background" Value="CadetBlue"/>
                     <Setter Property="MinWidth" Value="50"/>
                     <Setter Property="MinHeight" Value="30"/>
                     <Setter Property="Margin" Value="2"/>
                 </Style>
                 <Style TargetType="TextBox" x:Key="TimeTextBoxStyle">
-                <Setter Property="Background" Value="GreenYellow"/>
-                <Setter Property="MinWidth" Value="50"/>
+                <Setter Property="Background" Value="DeepSkyBlue"/>
+                <Setter Property="MinWidth" Value="35"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="MinHeight" Value="30"/>
-                <Setter Property="Margin" Value="2,2,2,2"/>
+                <Setter Property="Margin" Value="2"/>
             </Style>
             <Style TargetType="telerik:RadComboBox" BasedOn="{StaticResource RadComboBoxStyle}" >
-                <Setter Property="Background" Value="LawnGreen"/>
+                <Setter Property="Background" Value="LightSteelBlue"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                <Setter Property="MinWidth" Value="150"/>
+                <Setter Property="Width" Value="100"/>
                 <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
             <Style TargetType="TextBlock" x:Key="paramTextBlock">
                 <Setter Property="Margin" Value="2,2,2,2"/>
-                <Setter Property="Background" Value="LightSeaGreen"/>
-                <Setter Property="MinWidth" Value="50"/>
+                <Setter Property="Background" Value="CornflowerBlue"/>
+                <Setter Property="MinWidth" Value="40"/>
                 <Setter Property="MinHeight" Value="30"/>
              </Style>
-            <Style TargetType="Label">
-                <Setter Property="MinWidth" Value="50"/>
+                <Style TargetType="telerik:RadButton" BasedOn="{StaticResource RadButtonStyle}">
+                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="MinHeight" Value="30"/>
+                </Style>
+                <Style TargetType="Label">
+                <Setter Property="MinWidth" Value="30"/>
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
         </Grid.Resources>
@@ -63,16 +67,16 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label MinWidth="50">L.P</Label>
-                        <Label MinWidth="50">Operator</Label>
+                        <Label MinWidth="30">Operator</Label>
                         <Label MinWidth="100">Operacja</Label>
                     <Label MinWidth="150">Typ operacji</Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label MinWidth="50">1</Label>
-                            <Label MinWidth="50">2</Label>
-                            <Label MinWidth="50">3</Label>
-                            <Label MinWidth="50">4</Label>
-                            <Label MinWidth="50">5</Label>
-                            <Label MinWidth="50">6</Label>
+                            <Label MinWidth="40">1</Label>
+                            <Label MinWidth="40">2</Label>
+                            <Label MinWidth="40">3</Label>
+                            <Label MinWidth="40">4</Label>
+                            <Label MinWidth="40">5</Label>
+                            <Label MinWidth="40">6</Label>
                             <Label MinWidth="50">7</Label>
                             <Label MinWidth="50">8</Label>
                             <Label MinWidth="50">9</Label>
@@ -205,8 +209,11 @@
                     </ItemsControl>
                         </ScrollViewer>
                     </Border>
-                <Button x:Name="AddData">Dodaj operacje</Button>
-            </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <telerik:RadButton x:Name="AddData">Add Operation</telerik:RadButton>
+                        <telerik:RadButton>Print document</telerik:RadButton>
+                    </StackPanel>
+                </StackPanel>
         </StackPanel>
     </Grid>
     </ScrollViewer>

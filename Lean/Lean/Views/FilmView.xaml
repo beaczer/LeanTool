@@ -37,7 +37,7 @@
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <StackPanel Orientation="Vertical">
@@ -51,17 +51,27 @@
                 <ItemsControl ItemsSource="{Binding FCycleCollection}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="1">
-                                <ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding FOperationCollection}" HorizontalContentAlignment="Stretch">
+                            <Border x:Name="brd" BorderBrush="Black" BorderThickness="1" Tag="{Binding FCCId}">
+                                <ItemsControl x:Name="ListOfOperation" Tag="{Binding FCCId}" ItemsSource="{Binding FOperationCollection}" HorizontalContentAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                                       
                                             <StackPanel Orientation="Horizontal">
                                                 <Label Content="{Binding OperationId}" ></Label>
                                                 <TextBox Style="{StaticResource OperationDescription}" Text="{Binding OperationName}" ></TextBox>
-                                                <TextBox Text="{Binding FilmDataCollection.StartTime}"/>
-                                                <TextBox Text="{Binding FilmDataCollection.StopTime}"/>
-                                                <TextBox Text="{Binding FilmDataCollection.Time}"/>
+                                                <telerik:RadToggleButton IsChecked="{Binding On}" >
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <cal:ActionMessage MethodName="MakeActive">
+                                                                <cal:Parameter Value="$dataContext" />
+                                                                <cal:Parameter Value="{Binding ElementName=ListOfOperation, 
+                                                                    Path=Tag}"/>
+                                                            </cal:ActionMessage>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </telerik:RadToggleButton>
+                                                <TextBox Text="{Binding StartTime}"/>
+                                                <TextBox Text="{Binding StopTime}"/>
+                                                <TextBox Text="{Binding Time}"/>
                                             </StackPanel>
                                         
                                     </DataTemplate>
@@ -90,8 +100,8 @@
         <ScrollViewer Grid.Column="1">
             <DataGrid ItemsSource="{Binding CycleAnalyses}" AutoGenerateColumns="False" Margin="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id"/>
-                    <DataGridTextColumn Header="Description"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Name}"/>
                     <DataGridTemplateColumn Header="Cycle">
                         <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate >
@@ -109,8 +119,6 @@
                                 </StackPanel>
                             </DataTemplate>
                             
-
-
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Average"/>

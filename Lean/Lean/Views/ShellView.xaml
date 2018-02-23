@@ -12,17 +12,28 @@
         <conv:IsEnableConv x:Key="enableConverter"/>
         <Style TargetType="telerik:RadButton" BasedOn="{StaticResource RadButtonStyle}" >
             <Setter Property="Margin" Value="2"/>
-            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Width" Value="80"/>
             <Setter Property="MinHeight" Value="30"/>
         </Style>
-        <Style TargetType="TextBox"  >
+        <Style TargetType="telerik:RadExpander" BasedOn="{StaticResource RadExpanderStyle}" >
             <Setter Property="Margin" Value="2"/>
-            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Background" Value="#dfe3ee"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="complete" >
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="MinHeight" Value="30"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="radTextBox" >
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Width" Value="164"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="MinHeight" Value="30"/>
         </Style>
         <Style TargetType="ListView">
             <Setter Property="Margin" Value="2"/>
-            <Setter Property="MinHeight" Value="100"/>
+            <Setter Property="Height" Value="150"/>
             <Setter Property="MinWidth" Value="50"/>
         </Style>
         <Style TargetType="Border">
@@ -37,13 +48,19 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="2"/>
         </Style>
+        <Style TargetType="telerik:RadNumericUpDown" BasedOn="{StaticResource RadNumericUpDownStyle}">
+            <Setter Property="HideTrailingZeros" Value="True"/>
+            <Setter Property="NumberDecimalDigits" Value="0"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Minimum" Value="0"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="*"/>
             
-            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="Auto"/>
@@ -51,6 +68,7 @@
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <telerik:RadRibbonView Grid.Row="0" Grid.ColumnSpan="4" Height="100">
             <telerik:RadRibbonView.Items>
                 <telerik:RadRibbonTab Header="Home">
@@ -78,7 +96,7 @@
                                 <i:EventTrigger EventName="Click">
                                     <cal:ActionMessage MethodName="LoadVideo">
                                         <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
-                                        <cal:Parameter Value="{Binding ElementName=btnPlay}"/>
+                                        <cal:Parameter Value="{Binding ElementName=btnPlayA}"/>
                                     </cal:ActionMessage>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
@@ -94,13 +112,9 @@
                 </telerik:RadRibbonTab>
             </telerik:RadRibbonView.Items>
         </telerik:RadRibbonView>
-        <telerik:RadExpander Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" ExpandDirection="Right" Header="Line">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <telerik:RadExpander Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" ExpandDirection="Right" Header="Line">
+            <Border>
+            <StackPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <telerik:RadButton Content="Dodaj linie">
@@ -112,7 +126,6 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </telerik:RadButton>
-                        <TextBox x:Name="LineNameTxtBx" Text="NazwaLinii" ></TextBox>
                         <telerik:RadButton Content="Usu linie">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -123,13 +136,12 @@
                             </i:Interaction.Triggers>
                         </telerik:RadButton>
                     </StackPanel>
-                    <ListView x:Name="listViewLine" ItemsSource="{Binding ListOfLine}" DisplayMemberPath="LineName"
+                    <TextBox x:Name="LineNameTxtBx" ToolTip="Wpisz nazwe lini"  Style="{StaticResource radTextBox}" Text="NazwaLinii"  ></TextBox>
+                    <ListView x:Name="listViewLine"  ItemsSource="{Binding ListOfLine}" DisplayMemberPath="LineName"
                       cal:Message.Attach="[Event SelectionChanged]=[Action TellCurrentLine($this)]"></ListView>
                 </StackPanel>
-                <Expander Grid.Row="1"  
-                      IsEnabled="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  enableConverter}}"
-                      IsExpanded="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  enableConverter}}">
-                    <StackPanel>
+                    <StackPanel
+                        IsEnabled="{Binding ElementName=listViewLine, Path=SelectedItem, Converter={StaticResource  enableConverter}}">
                         <StackPanel Orientation="Horizontal">
                             <telerik:RadButton Content="Dodaj operacj">
                                 <i:Interaction.Triggers>
@@ -140,7 +152,6 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </telerik:RadButton>
-                            <TextBox Name="OperationNameTxtBx" Text="NazwaOperacji" ></TextBox>
                             <telerik:RadButton Content="Usu operacje">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
@@ -151,41 +162,64 @@
                                 </i:Interaction.Triggers>
                             </telerik:RadButton>
                         </StackPanel>
-                        <ListView Name="OperationLV" ItemsSource="{Binding CurrentLine.ListOfOperation }" 
+                            <TextBox Name="OperationNameTxtBx" Style="{StaticResource radTextBox}" Text="NazwaOperacji" ></TextBox>
+                            <ListView Name="OperationLV"  ItemsSource="{Binding CurrentLine.ListOfOperation }" 
                           DisplayMemberPath="OperationName"
                           cal:Message.Attach="[Event SelectionChanged]=[Action TellCurrentOperation($this)]"></ListView>
                     </StackPanel>
-                </Expander>
-            </Grid>
+            </StackPanel>
+            </Border>
         </telerik:RadExpander>
         <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
             <telerik:RadTabControl cal:Message.Attach="[Event SelectionChanged]=[Action InformObserwator]">
                 <telerik:RadTabItem Header="Analiza">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="4*"/>
+
                 </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                            <telerik:GroupBox Header="Analyse">
+                        <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1"
+                                    Grid.RowSpan="2" Grid.Column="0">
+                            
+                            --><!--<Label>StartTime</Label>
+                            <TextBlock Text="{Binding StartFT}"></TextBlock>
+                            <Label>StopTime</Label>
+                            <TextBlock Text="{Binding StopFT}"></TextBlock>
+                            <Label>Diff</Label>
+                            <TextBlock Text="{Binding DiffFT}"></TextBlock>--><!--
+                        </StackPanel>-->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <Label>Linia:</Label>
+                            <Label FontWeight="Bold" Content="{Binding CurrentLine.LineName}"></Label>
+                            <Label>Operacja:</Label>
+                            <Label FontWeight="Bold" Content="{Binding CurrentOperation.OperationName}"></Label>
+                                <TextBlock Foreground="Red" Text="{Binding ElementName=MediaPlayer,Path=Position.TotalSeconds}"></TextBlock>
+                            </StackPanel>
+
+                            <MediaElement x:Name="MediaPlayer" Grid.Row="1" LoadedBehavior="Manual"   />
+                            <telerik:GroupBox Header="Analyse" Grid.Row="2">
                                 <StackPanel Orientation="Horizontal">
-                                <telerik:RadButton x:Name="btnPlayA" Style="{StaticResource MenuBtn}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Click">
-                                            <cal:ActionMessage MethodName="StartAnalyse">
-                                                <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
-                                            </cal:ActionMessage>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                    <Grid>
-                                        <Image Source="/Lean;component/icons/play1.png"/>
-                                    </Grid>
-                                </telerik:RadButton>
+                                    <telerik:RadButton x:Name="btnPlayA" Style="{StaticResource MenuBtn}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <cal:ActionMessage MethodName="StartAnalyse">
+                                                    <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <Grid>
+                                            <Image Source="/Lean;component/icons/play1.png"/>
+                                        </Grid>
+                                    </telerik:RadButton>
 
                                     <telerik:RadButton x:Name="StopBtn" Style="{StaticResource MenuBtn}">
                                         <i:Interaction.Triggers>
@@ -200,36 +234,31 @@
                                     <telerik:GroupBox Header="Set Time">
                                         <StackPanel Orientation="Horizontal">
                                             <Label>MM:</Label>
-                                            <TextBox></TextBox>
+                                            <telerik:RadNumericUpDown x:Name="MMBtn" />
                                             <Label>SEC:</Label>
-                                            <TextBox></TextBox>
+                                            <telerik:RadNumericUpDown x:Name="SBtn"/>
                                             <Label>SSEC:</Label>
-                                            <TextBox></TextBox>
+                                            <telerik:RadNumericUpDown x:Name="SSBtn"/>
+                                            <telerik:RadButton Content="SET" >
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <cal:ActionMessage MethodName="SetTime">
+                                                            <cal:Parameter Value="{Binding ElementName=MMBtn, Path=Value}"/>
+                                                            <cal:Parameter Value="{Binding ElementName=SBtn, Path=Value}"/>
+                                                            <cal:Parameter Value="{Binding ElementName=SSBtn, Path=Value}"/>
+                                                            <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+
+                                                        </cal:ActionMessage>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </telerik:RadButton>
                                         </StackPanel>
                                     </telerik:GroupBox>
                                 </StackPanel>
                             </telerik:GroupBox>
-                            
-                            
-                            <telerik:RadButton Style="{StaticResource MenuBtn}"></telerik:RadButton>
-                            <Label>StartTime</Label>
-                            <TextBlock Text="{Binding StartFT}"></TextBlock>
-                            <Label>StopTime</Label>
-                            <TextBlock Text="{Binding StopFT}"></TextBlock>
-                            <Label>Diff</Label>
-                            <TextBlock Text="{Binding DiffFT}"></TextBlock>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
-                            <Label>Linia:</Label>
-                            <Label FontWeight="Bold" Content="{Binding CurrentLine.LineName}"></Label>
-                            <Label>Operacja:</Label>
-                            <Label FontWeight="Bold" Content="{Binding CurrentOperation.OperationName}"></Label>
-                        </StackPanel>
-
-
-                        <MediaElement x:Name="MediaPlayer" LoadedBehavior="Manual" Grid.Column="1" Margin="1,0,-0.667,49" Grid.RowSpan="2" />
-                        <telerik:RadTabControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+                        
+                        </Grid>
+                        <telerik:RadTabControl Grid.Column="1" Grid.ColumnSpan="3" >
                             <telerik:RadTabItem Header="Chronometraz">
                                 <ContentControl x:Name="DataCalculetingVM"/>
                             </telerik:RadTabItem>
@@ -237,7 +266,9 @@
 
                             </telerik:RadTabItem>
                             <telerik:RadTabItem Header="Film">
+                                <ScrollViewer>
                                 <ContentControl x:Name="FilmVM"/>
+                                </ScrollViewer>
                             </telerik:RadTabItem>
 
                         </telerik:RadTabControl>

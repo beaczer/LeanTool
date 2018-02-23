@@ -7,20 +7,40 @@ using Caliburn.Micro;
 
 namespace Lean.Classes
 {
-    public class CycleAnalyse
+    public class CycleAnalyse:PropertyChangedBase
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        private int id;
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+                NotifyOfPropertyChange(() => Id);
+            }
+        }
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                NotifyOfPropertyChange(() => Name);
+            }
+        }
         public BindableCollection<double> list { get; set; } = new BindableCollection<double>();
         public double AvarageCycle { get; private set; }
         public CycleAnalyse(int id)
         {
             Id = id;
-            list.Add(1);
-            list.Add(1);
-            list.Add(1);
-            list.Add(100);
-            
+            Name = name;
         }
         public void SetCycle()
         {

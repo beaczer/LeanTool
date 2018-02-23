@@ -16,16 +16,28 @@ namespace Lean {
     public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell,IObserwowany
     {
         List<IObserwator> ListOfObserwator = new List<IObserwator>();
-        IWindowManager manager = new WindowManager();
-        public LineViewModel DataCalculetingVM { get; private set; } = new LineViewModel();
-        public YamazumiViewModel YamazumiVM { get; set; } = new YamazumiViewModel();
+        
+        public LineViewModel DataCalculetingVM { get; private set; }
+        public YamazumiViewModel YamazumiVM { get; set; }
         public LineManagerViewModel LineManagerVM { get; private set; } = new LineManagerViewModel();
-        public BalansViewModel BalansVM { get; set; } = new BalansViewModel();
-        public FilmViewModel FilmVM { get; set; } = new FilmViewModel();
+        public BalansViewModel BalansVM { get; set; }
+        public FilmViewModel FilmVM { get; set; } 
 
         private BindableCollection<string> typeOfOperation = new BindableCollection<string> { "Kontrola", "Przejœcie", "Czekanie", "Operacja" };
         public BindableCollection<string> TypeOfOperation { get => typeOfOperation; set => typeOfOperation = value; }
-
+        private double totalSecFilm;
+        public double TotalSecFilm
+        {
+            get
+            {
+                return totalSecFilm;
+            }
+            set
+            {
+                totalSecFilm = value;
+                NotifyOfPropertyChange(() => TotalSecFilm);
+            }
+        }
         private Stopwatch stopWatch = new Stopwatch();
         private List<AnalyseRow> ListOfRow = new List<AnalyseRow>();
         private FilmTimer startFT = new FilmTimer(0, 0, 0);
@@ -54,6 +66,8 @@ namespace Lean {
                 NotifyOfPropertyChange(() => StopFT);
             }
         }
+        public bool ifStart=false;
+
         private FilmTimer diffFT;
         public FilmTimer DiffFT
         {
@@ -68,17 +82,20 @@ namespace Lean {
             }
         }
 
-
-        //public void ShowManager()
-        //{
-        //    manager.ShowDialog(LineManagerVM, null, null);
-        //}
         public ShellViewModel()
         {
+
+            YamazumiVM = new YamazumiViewModel(this);
+            FilmVM = new FilmViewModel(this);
+            DataCalculetingVM = new LineViewModel(this);
+            BalansVM = new BalansViewModel(this);
+
             AddObserwatora(DataCalculetingVM);
             AddObserwatora(YamazumiVM);
             AddObserwatora(BalansVM);
+            AddObserwatora(FilmVM);
             
+
         }
         public BindableCollection<Line> ListOfLine { get; set; } = new BindableCollection<Line>();
         private IOperation currentOperation;
@@ -155,10 +172,19 @@ namespace Lean {
                 StartFT.SetTime(stopWatch.Elapsed.Minutes, stopWatch.Elapsed.Seconds, stopWatch.Elapsed.Milliseconds);
                 NotifyOfPropertyChange(() => StartFT);
                 stopWatch.Start();
-               
+                ifStart = true;
+                this.InformObserwator();
             }
         }
-        
+        public void SetTime(int m, int s, int ss, MediaElement me)
+        {
+            double seconds = (m * 60) + s + (ss / 1000);
+            me.Position = TimeSpan.FromSeconds(seconds);
+            stopWatch.Reset();
+           // var x = me.NaturalDuration.TimeSpan.TotalSeconds;
+        }
+
+
         public void PauseAnalyse(MediaElement me)
         {
             if (me != null)
@@ -179,8 +205,18 @@ namespace Lean {
                 // Open document  
                 (me as MediaElement).Source = new Uri(dialog.FileName);
                 (btnPlay as Button).IsEnabled = true;
+                (me as MediaElement).Play();
+                (me as MediaElement).Stop();
+                if((me as MediaElement).NaturalDuration.HasTimeSpan)
+                TotalSecFilm = (me as MediaElement).NaturalDuration.TimeSpan.TotalSeconds;
+                
             }
             stopWatch.Reset() ;
+            
+        }
+        public void SetFilmTime(MediaElement me,RadSlider rs)
+        {
+            me.Position =TimeSpan.FromSeconds( rs.Value);
         }
         public void PlayVideo(MediaElement me)
         {
@@ -207,6 +243,8 @@ namespace Lean {
                 StopFT.SetTime(stopWatch.Elapsed.Minutes, stopWatch.Elapsed.Seconds, stopWatch.Elapsed.Milliseconds);
                 NotifyOfPropertyChange(() => StopFT);
                 DiffFT = StartFT.SubstructTime(StopFT);
+                ifStart = false;
+                this.InformObserwator();
             }
         }
         public void PauseVideo(MediaElement me)
@@ -230,7 +268,7 @@ namespace Lean {
         {
             foreach (var item in ListOfObserwator)
             {
-                item.Aktualizuj(CurrentOperation,CurrentLine);
+                item.Aktualizuj();
             }
         }
 

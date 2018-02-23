@@ -23,7 +23,7 @@ namespace Lean.ViewModels
     }
     public class BalansViewModel : Screen, IObserwator
     {
-
+        private ShellViewModel shellVM { get; set; }
         public BindableCollection<ChartElement> Czekanie { get; set; } = new BindableCollection<ChartElement>();
         public BindableCollection<ChartElement> Kontrola { get; set; } = new BindableCollection<ChartElement>();
 
@@ -69,12 +69,15 @@ namespace Lean.ViewModels
             }
         }
 
-        public void Aktualizuj(IOperation op, ILine line)
+        public void Aktualizuj()
         {
-            CurrentLine = line;
+            CurrentLine = shellVM.CurrentLine;
             PrepareDate();
         }
-
+        public BalansViewModel(ShellViewModel svm)
+        {
+            shellVM = svm;
+        }
         public void PrepareDate()
         {
             if (CurrentLine != null)
