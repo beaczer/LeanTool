@@ -7,8 +7,10 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using Telerik.Windows.Controls;
 
 
@@ -67,6 +69,20 @@ namespace Lean {
             }
         }
         public bool ifStart=false;
+        private double videoTime;
+        public double VideoTime
+        {
+            get { return videoTime; }
+            set { videoTime = value;
+                NotifyOfPropertyChange(() => VideoTime);
+            }
+        }
+        Timer tim=new Timer(showTime);
+       
+        private static void showTime(object state)
+        {
+            throw new NotImplementedException();
+        }
 
         private FilmTimer diffFT;
         public FilmTimer DiffFT
@@ -81,10 +97,10 @@ namespace Lean {
                 NotifyOfPropertyChange(() => DiffFT);
             }
         }
-
+        DispatcherTimer timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(0.5) };
         public ShellViewModel()
         {
-
+            timer.Tick += new System.EventHandler(timer_Tick);
             YamazumiVM = new YamazumiViewModel(this);
             FilmVM = new FilmViewModel(this);
             DataCalculetingVM = new LineViewModel(this);
@@ -97,6 +113,14 @@ namespace Lean {
             
 
         }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+
+            VideoTime = stopWatch.Elapsed.Seconds;
+        
+        }
+
         public BindableCollection<Line> ListOfLine { get; set; } = new BindableCollection<Line>();
         private IOperation currentOperation;
         public IOperation CurrentOperation
@@ -169,6 +193,7 @@ namespace Lean {
             if (me!=null)
             {
                 me.Play();
+                timer.Start();
                 StartFT.SetTime(stopWatch.Elapsed.Minutes, stopWatch.Elapsed.Seconds, stopWatch.Elapsed.Milliseconds);
                 NotifyOfPropertyChange(() => StartFT);
                 stopWatch.Start();
@@ -181,6 +206,8 @@ namespace Lean {
             double seconds = (m * 60) + s + (ss / 1000);
             me.Position = TimeSpan.FromSeconds(seconds);
             stopWatch.Reset();
+            VideoTime = seconds;
+            
            // var x = me.NaturalDuration.TimeSpan.TotalSeconds;
         }
 
@@ -238,7 +265,8 @@ namespace Lean {
         {
             if (me != null)
             {
-                me.Stop();
+                timer.Stop();
+                me.Pause();
                 stopWatch.Stop();
                 StopFT.SetTime(stopWatch.Elapsed.Minutes, stopWatch.Elapsed.Seconds, stopWatch.Elapsed.Milliseconds);
                 NotifyOfPropertyChange(() => StopFT);

@@ -204,8 +204,15 @@
                             <Label FontWeight="Bold" Content="{Binding CurrentOperation.OperationName}"></Label>
                                 <TextBlock Foreground="Red" Text="{Binding ElementName=MediaPlayer,Path=Position.TotalSeconds}"></TextBlock>
                             </StackPanel>
-
-                            <MediaElement x:Name="MediaPlayer" Grid.Row="1" LoadedBehavior="Manual"   />
+                            <telerik:GroupBox Header="Video" Grid.Row="1">
+                                <StackPanel>
+                                    <MediaElement x:Name="MediaPlayer"  LoadedBehavior="Manual"   />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Current Time:"/>
+                                        <TextBlock Text="{Binding VideoTime}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </telerik:GroupBox>
                             <telerik:GroupBox Header="Analyse" Grid.Row="2">
                                 <StackPanel Orientation="Horizontal">
                                     <telerik:RadButton x:Name="btnPlayA" Style="{StaticResource MenuBtn}">
@@ -230,6 +237,28 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                         <Image Source="/Lean;component/icons/stop1.png"/>
+                                    </telerik:RadButton>
+
+                                    <telerik:RadButton x:Name="LeftBtn" Style="{StaticResource MenuBtn}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <cal:ActionMessage MethodName="StopAnalyse">
+                                                    <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <TextBlock Text="+10" FontWeight="Bold"/>
+                                    </telerik:RadButton>
+
+                                    <telerik:RadButton x:Name="RightBtn" Style="{StaticResource MenuBtn}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <cal:ActionMessage MethodName="StopAnalyse">
+                                                    <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+                                                </cal:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <TextBlock Text="-10" FontWeight="Bold"/>
                                     </telerik:RadButton>
                                     <telerik:GroupBox Header="Set Time">
                                         <StackPanel Orientation="Horizontal">

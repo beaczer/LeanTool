@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,17 +37,28 @@ namespace Lean.Classes
             }
         }
         public BindableCollection<double> list { get; set; } = new BindableCollection<double>();
-        public double AvarageCycle { get; private set; }
+        private double avarageCycle;
+        public double AvarageCycle
+        {
+            get
+            { return avarageCycle; }
+            set
+            {
+                avarageCycle = value;
+                NotifyOfPropertyChange(() => AvarageCycle);
+            }
+        }
         public CycleAnalyse(int id)
         {
             Id = id;
             Name = name;
-        }
-        public void SetCycle()
-        {
-         
-         
+            list.CollectionChanged += CollectionChange;
         }
 
+        private void CollectionChange(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            
+            AvarageCycle = list.Average();
+        }
     }
 }

@@ -111,16 +111,17 @@ namespace Lean.ViewModels
         }
         private void CompleteStartTime(int[]tab)
         {
-            FCycleCollection[tab[0]].FOperationCollection[tab[1]].StartTime = StartFT.Seconds;
+            FCycleCollection[tab[0]].FOperationCollection[tab[1]].StartTime = StartFT.Seconds+StartFT.Minutes*60+StartFT.MiliSeconds/1000;
         }
         private void CompleteStopTime(int[] tab)
         {
-            FCycleCollection[tab[0]].FOperationCollection[tab[1]].StopTime = StopFT.Seconds;
+            FCycleCollection[tab[0]].FOperationCollection[tab[1]].StopTime = StopFT.Seconds+StopFT.Minutes*60+StopFT.MiliSeconds/1000;
         }
         public FilmViewModel(ShellViewModel svm)
         {
             ShellVM = svm;
             FCycleCollection.Add(new FilmCycleCollection(NoCycle));
+            
             On = true;
             CurrentOperationCollection = new FilmOperationCollection();
         }
@@ -129,15 +130,33 @@ namespace Lean.ViewModels
             int index = FCycleCollection[NoCycle].FOperationCollection.Count();
             FCycleCollection[NoCycle].FOperationCollection.Add(new FilmOperationCollection(index));
             NoOperation = FCycleCollection[NoCycle].FOperationCollection.Count();
-            if(NoCycle==0)CycleAnalyses.Add(new CycleAnalyse(index));
+            if (NoCycle == 0)
+            {
+                CycleAnalyses.Add(new CycleAnalyse(index));
+                
+            }
+           
         }
         public void AddCycle()
         {
             On = false;
             GetTemporaryNames();
+            if (FCycleCollection.Count == 1)
+            {
+                foreach (var item in CycleAnalyses)
+                {
+                    item.list.Add(0);
+                }
+            }
             NoCycle++;
             FCycleCollection.Add(new FilmCycleCollection(NoOperation,TemporaryNames,NoCycle));
-            if(NoCycle==1)GetNamesForCycleAnalyse();
+            
+            GetNamesForCycleAnalyse();
+            foreach (var item in CycleAnalyses)
+            {
+                    item.list.Add(0);
+            }
+            
             
          }
         public void MakeActive(object dc,int dc1)
@@ -175,6 +194,7 @@ namespace Lean.ViewModels
         
         private void GetTemporaryNames()
         {
+            TemporaryNames=new List<string>();
             foreach (var item in FCycleCollection[0].FOperationCollection)
             {
                 TemporaryNames.Add(item.OperationName);
@@ -187,7 +207,11 @@ namespace Lean.ViewModels
                 CycleAnalyses[i].Name = TemporaryNames[i];
             }
         }
-
+        private void CompleteCycleAnalyse()
+        {
+            int[] tab = FindActiceFCycleCollection();
+            CycleAnalyses[tab[1]].list[tab[0]] = FCycleCollection[tab[0]].FOperationCollection[tab[1]].Time;
+        }
         public void Aktualizuj()
         {
             if (FCycleCollection.Count > 1) { 
@@ -200,6 +224,7 @@ namespace Lean.ViewModels
             {
                 StopFT = ShellVM.StopFT;
                 CompleteStopTime(FindActiceFCycleCollection());
+                CompleteCycleAnalyse();
             }
             }
         }
