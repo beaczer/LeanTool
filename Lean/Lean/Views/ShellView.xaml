@@ -72,8 +72,8 @@
         <telerik:RadRibbonView Grid.Row="0" Grid.ColumnSpan="4" Height="100">
             <telerik:RadRibbonView.Items>
                 <telerik:RadRibbonTab Header="Home">
-                    <telerik:RadRibbonGroup Header="Plik">
-                        <telerik:RadRibbonButton Text="Zaladuj video" >
+                    <telerik:RadRibbonGroup Header="File">
+                        <telerik:RadRibbonButton Text="Load video" >
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <cal:ActionMessage MethodName="LoadVideo">
@@ -84,12 +84,12 @@
                             </i:Interaction.Triggers>
                             <Image Source="/Lean;component/icons/loadFile.png"  />
                         </telerik:RadRibbonButton>
-                        <telerik:RadRibbonButton Text="Zapisz analize" >
+                        <telerik:RadRibbonButton Text="Save analyse" >
                             <Image Source="/Lean;component/icons/loadFile.png"  />
                         </telerik:RadRibbonButton>
                     </telerik:RadRibbonGroup>
                 </telerik:RadRibbonTab>
-                <telerik:RadRibbonTab Header="Save">
+                <telerik:RadRibbonTab Header="Save file">
                     <telerik:RadRibbonGroup Header="Plik">
                         <telerik:RadRibbonButton Text="SavePDF" >
                             <i:Interaction.Triggers>
@@ -108,6 +108,25 @@
                         <telerik:RadRibbonButton Text="SaveDoc" >
                             <Image Source="/Lean;component/icons/loadFile.png"  />
                         </telerik:RadRibbonButton>
+                    </telerik:RadRibbonGroup>
+                </telerik:RadRibbonTab>
+                <telerik:RadRibbonTab Header="View options">
+                    <telerik:RadRibbonGroup Header="Plik">
+                        <telerik:RadRibbonButton Text="SavePDF" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="LoadVideo">
+                                        <cal:Parameter Value="{Binding ElementName=MediaPlayer}"/>
+                                        <cal:Parameter Value="{Binding ElementName=btnPlayA}"/>
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <Image Source="/Lean;component/icons/loadFile.png"  />
+                        </telerik:RadRibbonButton>
+                        <telerik:RadRibbonButton Text="SaveExcel" >
+                            <Image Source="/Lean;component/icons/loadFile.png"  />
+                        </telerik:RadRibbonButton>
+                        
                     </telerik:RadRibbonGroup>
                 </telerik:RadRibbonTab>
             </telerik:RadRibbonView.Items>
@@ -298,6 +317,13 @@
                                 <ScrollViewer>
                                 <ContentControl x:Name="FilmVM"/>
                                 </ScrollViewer>
+                                
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Analyse Summary">
+                                <ScrollViewer>
+                                    <ContentControl x:Name="SummaryVM"/>
+                                </ScrollViewer>
+
                             </telerik:RadTabItem>
 
                         </telerik:RadTabControl>

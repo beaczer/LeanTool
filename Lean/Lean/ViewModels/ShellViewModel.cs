@@ -13,7 +13,6 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Telerik.Windows.Controls;
 
-
 namespace Lean {
     public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell,IObserwowany
     {
@@ -24,7 +23,7 @@ namespace Lean {
         public LineManagerViewModel LineManagerVM { get; private set; } = new LineManagerViewModel();
         public BalansViewModel BalansVM { get; set; }
         public FilmViewModel FilmVM { get; set; } 
-
+        public SummaryViewModel SummaryVM { get; set; }
         private BindableCollection<string> typeOfOperation = new BindableCollection<string> { "Kontrola", "Przejœcie", "Czekanie", "Operacja" };
         public BindableCollection<string> TypeOfOperation { get => typeOfOperation; set => typeOfOperation = value; }
         private double totalSecFilm;
@@ -100,18 +99,18 @@ namespace Lean {
         DispatcherTimer timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(0.5) };
         public ShellViewModel()
         {
+            CurrentOperation = new Operation();
             timer.Tick += new System.EventHandler(timer_Tick);
             YamazumiVM = new YamazumiViewModel(this);
             FilmVM = new FilmViewModel(this);
             DataCalculetingVM = new LineViewModel(this);
             BalansVM = new BalansViewModel(this);
-
+            SummaryVM = new SummaryViewModel(this);
             AddObserwatora(DataCalculetingVM);
             AddObserwatora(YamazumiVM);
             AddObserwatora(BalansVM);
             AddObserwatora(FilmVM);
-            
-
+            AddObserwatora(SummaryVM);
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -192,9 +191,13 @@ namespace Lean {
         {
             if (me!=null)
             {
+                StartFT.SetTime(me.Position.Minutes, me.Position.Seconds, me.Position.Milliseconds);
                 me.Play();
+                //double ts = double.Parse(me.Position.Seconds.ToString()) + double.Parse((me.Position.Milliseconds / 1000).ToString());
+
                 timer.Start();
-                StartFT.SetTime(stopWatch.Elapsed.Minutes, stopWatch.Elapsed.Seconds, stopWatch.Elapsed.Milliseconds);
+                
+                //StartFT.SetTime(stopWatch.Elapsed.Minutes, stopWatch.Elapsed.Seconds, stopWatch.Elapsed.Milliseconds);
                 NotifyOfPropertyChange(() => StartFT);
                 stopWatch.Start();
                 ifStart = true;
@@ -265,12 +268,19 @@ namespace Lean {
         {
             if (me != null)
             {
-                timer.Stop();
+               
+                
+                //StopFT.SetTime(me.Position.Minutes, me.Position.Seconds, Math.Round((double.Parse(me.Position.Milliseconds.ToString())), 1));
                 me.Pause();
+                
+                StopFT.SetTime(me.Position.Minutes, me.Position.Seconds, me.Position.Milliseconds);
+                timer.Stop();
+                
                 stopWatch.Stop();
-                StopFT.SetTime(stopWatch.Elapsed.Minutes, stopWatch.Elapsed.Seconds, stopWatch.Elapsed.Milliseconds);
+              //  StopFT.SetTime(stopWatch.Elapsed.Minutes, stopWatch.Elapsed.Seconds, stopWatch.Elapsed.Milliseconds);
                 NotifyOfPropertyChange(() => StopFT);
                 DiffFT = StartFT.SubstructTime(StopFT);
+             
                 ifStart = false;
                 this.InformObserwator();
             }

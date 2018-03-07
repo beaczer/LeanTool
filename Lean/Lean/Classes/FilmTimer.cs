@@ -33,7 +33,7 @@ namespace Lean.Classes
             int minut = (int)result / 60;
             int sec = (int)result % 60;
             double ssec = (result - minut * 60 - sec) * 1000;
-            ssec = Math.Round(ssec, 3);
+            ssec = Math.Round(ssec, 2);
             return new FilmTimer(minut, sec, ssec);
         }
         public override string ToString()

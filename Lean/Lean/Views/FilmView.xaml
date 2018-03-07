@@ -26,6 +26,7 @@
                 <Setter Property="MinWidth" Value="80"/>
                 <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="IsTabStop" Value="False"/>
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
             <ObjectDataProvider x:Key="enumValues"
@@ -35,10 +36,6 @@
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
         </Grid.Resources>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <ScrollViewer VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
@@ -48,7 +45,7 @@
                     <Label MinWidth="80">Stop</Label>
                     <Label MinWidth="80">Czas</Label>
                 </StackPanel>
-                <ItemsControl ItemsSource="{Binding FCycleCollection}">
+                <ItemsControl ItemsSource="{Binding CurrentOperation.FCycleCollection}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border x:Name="brd" BorderBrush="Black" BorderThickness="1" Tag="{Binding FCCId}">
@@ -69,7 +66,7 @@
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </telerik:RadToggleButton>
-                                                <TextBox Text="{Binding StartTime}"/>
+                                                <TextBox  Text="{Binding StartTime}"/>
                                                 <TextBox Text="{Binding StopTime}"/>
                                                 <TextBox Text="{Binding Time}"/>
                                             </StackPanel>
@@ -83,63 +80,20 @@
                 </ItemsControl>
                 <StackPanel Orientation="Horizontal">
                     <telerik:RadButton x:Name="AddData" Visibility="{Binding On, Converter={StaticResource VisToColl}}">
-                        Dodaj Operacje
+                        Add operation
                     </telerik:RadButton>
-                    <telerik:RadButton Visibility="{Binding On,Converter={StaticResource VisToColl}}">
-                        Usun Operacje
+                    <telerik:RadButton Visibility="{Binding On,Converter={StaticResource VisToColl}}"
+                                       cal:Message.Attach="[Event Click]=[Action DeleteLastOp]">
+                        Delete last operation
                     </telerik:RadButton>
                     <telerik:RadButton x:Name="AddCycle">
-                        Dodaj cykl
+                        Add cycle
                     </telerik:RadButton>
-                    <telerik:RadButton>
-                        Usun cykl
+                    <telerik:RadButton cal:Message.Attach="[Event Click]=[Action DeleteCycle]">
+                        Delete last cycle
                     </telerik:RadButton>
                 </StackPanel>
             </StackPanel>
-        </ScrollViewer>
-        <ScrollViewer Grid.Column="1">
-            <DataGrid ItemsSource="{Binding CycleAnalyses}" AutoGenerateColumns="False" Margin="2">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Description" Binding="{Binding Name}"/>
-                    <DataGridTemplateColumn Header="Cycle">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <DataGrid ItemsSource="{Binding list}" HeadersVisibility="Row" >
-                                    <DataGrid.LayoutTransform>
-                                        <TransformGroup>
-                                            <RotateTransform Angle="270"/>
-                                        </TransformGroup>
-                                    </DataGrid.LayoutTransform>
-                                    <DataGrid.CellStyle>
-                                        <Style  TargetType="DataGridCell">
-                                            <Setter Property="LayoutTransform">
-                                                <Setter.Value>
-                                                    <TransformGroup>
-                                                        <RotateTransform Angle="90"/>
-                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
-                                                    </TransformGroup>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </DataGrid.CellStyle>
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Cycle" Binding="{Binding .}"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                                    <!--<ItemsControl ItemsSource="{Binding list}" >
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBox Width="5" Text="{Binding .}"></TextBox>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>-->
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Average" Binding="{Binding AvarageCycle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
         </ScrollViewer>
     </Grid>
 </UserControl>

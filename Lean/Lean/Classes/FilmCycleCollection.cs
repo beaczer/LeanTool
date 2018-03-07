@@ -18,7 +18,6 @@ namespace Lean.Classes
         public FilmCycleCollection( int index)
         {
             FCCId = index;
-         
         }
         public FilmCycleCollection(int NoOfOperation,int index)
         {

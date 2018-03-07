@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Lean.SummaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Lean"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <StackPanel.Resources>
+            <ObjectDataProvider x:Key="enumValues"
+                 MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="local:TypeOfOperation"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </StackPanel.Resources>
+        <DataGrid ItemsSource="{Binding CycleAnalyses}" AutoGenerateColumns="False" Margin="2" HorizontalContentAlignment="Stretch"
+                  VerticalContentAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Name}"/>
+                <DataGridTemplateColumn Header="Cycle">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding list}" HeadersVisibility="Row" >
+                                <DataGrid.LayoutTransform>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="270"/>
+                                    </TransformGroup>
+                                </DataGrid.LayoutTransform>
+                                <DataGrid.CellStyle>
+                                    <Style  TargetType="DataGridCell">
+                                        <Setter Property="LayoutTransform">
+                                            <Setter.Value>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="90"/>
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGrid.CellStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Cycle" Binding="{Binding .}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <!--<ItemsControl ItemsSource="{Binding list}" >
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBox Width="5" Text="{Binding .}"></TextBox>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>-->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Min" Binding="{Binding MinCycle}"/>
+                <DataGridTextColumn Header="Max" Binding="{Binding MaxCycle}"/>
+                <DataGridTextColumn Header="Average" Binding="{Binding AvarageCycle}"/>
+                <DataGridComboBoxColumn Header="Type" ItemsSource="{Binding Source={StaticResource enumValues}}" SelectedItemBinding="{Binding OperationType}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel>
+            <TextBlock Text="Czas cyklu wynosi:"/>
+            <TextBlock Text="{Binding CTTime}"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

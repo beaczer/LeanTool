@@ -12,6 +12,8 @@ namespace Lean.Classes
     {
         public string LineName { get; private set; }
         public BindableCollection<IOperation> ListOfOperation { get; set; } = new BindableCollection<IOperation>();
+        
+        
         public Line(string name)
         {
             LineName = name;

@@ -148,6 +148,7 @@
       <DependentUpon>AnalyseRow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Compile Include="ViewModels\SummaryViewModel.cs" />
     <Compile Include="ViewModels\YamazumiViewModel.cs" />
     <Compile Include="Views\BalansView.xaml.cs">
       <DependentUpon>BalansView.xaml</DependentUpon>
@@ -160,6 +161,9 @@
     </Compile>
     <Compile Include="Views\LineView.xaml.cs">
       <DependentUpon>LineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SummaryView.xaml.cs">
+      <DependentUpon>SummaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\YamazumiView.xaml.cs">
       <DependentUpon>YamazumiView.xaml</DependentUpon>
@@ -185,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SummaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

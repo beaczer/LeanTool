@@ -10,6 +10,11 @@ namespace Lean.Classes
 {
     public class CycleAnalyse:PropertyChangedBase
     {
+        public TypeOfOperation OperationType {
+            get;
+            set;
+        }
+        
         private int id;
         public int Id
         {
@@ -44,8 +49,30 @@ namespace Lean.Classes
             { return avarageCycle; }
             set
             {
-                avarageCycle = value;
+                avarageCycle =Math.Round(value,2);
                 NotifyOfPropertyChange(() => AvarageCycle);
+            }
+        }
+        private double minCycle;
+        public double MinCycle
+        {
+            get
+            { return minCycle; }
+            set
+            {
+                minCycle = Math.Round(value, 2);
+                NotifyOfPropertyChange(() => MinCycle);
+            }
+        }
+        private double maxCycle;
+        public double MaxCycle
+        {
+            get
+            { return maxCycle; }
+            set
+            {
+                maxCycle = Math.Round(value, 2);
+                NotifyOfPropertyChange(() => MaxCycle);
             }
         }
         public CycleAnalyse(int id)
@@ -57,8 +84,9 @@ namespace Lean.Classes
 
         private void CollectionChange(object sender, NotifyCollectionChangedEventArgs e)
         {
-            
             AvarageCycle = list.Average();
+            MinCycle = list.Min();
+            MaxCycle = list.Max();
         }
     }
 }
