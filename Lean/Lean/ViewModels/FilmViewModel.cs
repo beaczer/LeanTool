@@ -138,7 +138,7 @@ namespace Lean.ViewModels
         }
         public void AddCycle()
         {
-            On = false;
+  //          On = false;
             GetTemporaryNames();
             if (CurrentOperation.FCycleCollection.Count == 1)
             {
@@ -213,7 +213,7 @@ namespace Lean.ViewModels
         }
         public void DeleteCycle()
         {
-            CurrentOperation.FCycleCollection.RemoveAt(FCycleCollection.Count-1);
+            CurrentOperation.FCycleCollection.RemoveAt(CurrentOperation.FCycleCollection.Count-1);
             CurrentOperation.CycleAnalyses.RemoveAt(CurrentOperation.CycleAnalyses.Count - 1);
         }
         private void CompleteCycleAnalyse()
@@ -225,6 +225,7 @@ namespace Lean.ViewModels
         {
 
             CurrentOperation= ShellVM.CurrentOperation;
+            NoCycle = CurrentOperation.FCycleCollection.Count-1;
             if (CurrentOperation.FCycleCollection.Count > 1) { 
             if (ShellVM.ifStart)
             {

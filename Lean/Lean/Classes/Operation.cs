@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,8 @@ namespace Lean.Classes
         public double AVTime { get; set; }
         public double ControlTime { get; set; }
         public double TransportTime { get; set; }
-
+       
+        
         private double sum;
         public double Sum
         {
@@ -60,11 +62,25 @@ namespace Lean.Classes
             OperationName = name;
             ListOfOperation = new BindableCollection<ElementaryOperation>();
             FCycleCollection.Add(new FilmCycleCollection(0));
+            CycleAnalyses.CollectionChanged += Calculate;
+            
         }
+
+        private void Calculate(object sender, NotifyCollectionChangedEventArgs e)
+        {
+           
+                WaitingTime = CycleAnalyses.Where(x => x.OperationType == TypeOfOperation.Czekanie).Sum(z => z.AvarageCycle);
+                AVTime = CycleAnalyses.Where(x => x.OperationType == TypeOfOperation.Kontrola).Sum(z => z.AvarageCycle);
+                ControlTime = CycleAnalyses.Where(x => x.OperationType == TypeOfOperation.Kontrola).Sum(z => z.AvarageCycle);
+                TransportTime = CycleAnalyses.Where(x => x.OperationType == TypeOfOperation.Kontrola).Sum(z => z.AvarageCycle);
+          
+        }
+
         public Operation()
         {
             ListOfOperation = new BindableCollection<ElementaryOperation>();
             FCycleCollection.Add(new FilmCycleCollection(0));
+            CycleAnalyses.CollectionChanged += Calculate;
         }
     }
 }

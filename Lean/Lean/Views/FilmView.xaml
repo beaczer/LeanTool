@@ -16,8 +16,8 @@
             <conv:VisibleToHiddenConv x:Key="VisToColl"/>
             <Style TargetType="TextBox" x:Key="OperationDescription">
                 <Setter Property="Background" Value="LightBlue"/>
-                <Setter Property="MinWidth" Value="200"/>
-                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Height" Value="30"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="Margin" Value="2,2,2,2"/>
             </Style>
@@ -79,7 +79,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
                 <StackPanel Orientation="Horizontal">
-                    <telerik:RadButton x:Name="AddData" Visibility="{Binding On, Converter={StaticResource VisToColl}}">
+                    <telerik:RadButton x:Name="AddData">
                         Add operation
                     </telerik:RadButton>
                     <telerik:RadButton Visibility="{Binding On,Converter={StaticResource VisToColl}}"

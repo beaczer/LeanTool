@@ -201,8 +201,8 @@
                                     <TextBlock Text="{Binding MinTime}" Style="{StaticResource paramTextBlock}"   />
                                     <TextBlock Text="{Binding MaxTime}" Style="{StaticResource paramTextBlock}"  />
                                     <TextBlock Text="{Binding Stability}"  Style="{StaticResource paramTextBlock}" />
-                                        <TextBox  MinWidth="50" Text="{Binding Freq}" />
-                                        <TextBlock Text="{Binding AvgTime}"  Style="{StaticResource paramTextBlock}" />
+                                    <TextBox  MinWidth="50" Text="{Binding Freq}" />
+                                    <TextBlock Text="{Binding AvgTime}"  Style="{StaticResource paramTextBlock}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

@@ -9,112 +9,21 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel>
-            <TextBlock FontSize="20" Text="{Binding ManSet[0].id}"/>
-            <TextBlock FontSize="20" Text="{Binding ManSet[0].Czekanie}"/>
-            <TextBlock FontSize="20" Text="{Binding ManSet[1].id}"/>
-            <TextBlock FontSize="20" Text="{Binding ManSet[1].Czekanie}"/>
-            
-            
+            <telerik:RadCartesianChart x:Name="RadCartesianChart">
+            <telerik:RadCartesianChart.HorizontalAxis>
+                <telerik:CategoricalAxis  />
+            </telerik:RadCartesianChart.HorizontalAxis>
+            <telerik:RadCartesianChart.VerticalAxis>
+                <telerik:LinearAxis />
+            </telerik:RadCartesianChart.VerticalAxis>
 
-            <telerik:RadCartesianChart Palette="Windows8">
-                <telerik:RadCartesianChart.HorizontalAxis>
-                    <telerik:CategoricalAxis/>
-                </telerik:RadCartesianChart.HorizontalAxis>
-                <telerik:RadCartesianChart.VerticalAxis>
-                    <telerik:LinearAxis />
-                </telerik:RadCartesianChart.VerticalAxis>
-                <telerik:RadCartesianChart.Series>
-                    
-                    <telerik:RangeBarSeries>
-                        <telerik:RangeBarSeries.DataPoints>
-                            <telerik:RangeDataPoint Category="January"  High="5" Low="0"/>
-                            <telerik:RangeDataPoint Category="February" High="7" Low="2"/>
-                            <telerik:RangeDataPoint Category="March" High="6" Low="4"/>
-                            <telerik:RangeDataPoint Category="April" High="8" Low="5"/>
-                            <telerik:RangeDataPoint Category="May" High="4" Low="3"/>
-                            <telerik:RangeDataPoint Category="June" High="9" Low="7"/>
-                            <telerik:RangeDataPoint Category="July" High="3" Low="1"/>
-                        </telerik:RangeBarSeries.DataPoints>
-                        
-                    </telerik:RangeBarSeries>
+            <telerik:RadCartesianChart.Series>
+                <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding CurrentLine.ListOfOperation}"  ValueBinding="WaitingTime"/>
+                <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding CurrentLine.ListOfOperation}" ValueBinding="ControlTime"/>
+                    <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding CurrentLine.ListOfOperation}" ValueBinding="AVTime"/>
+                    <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding CurrentLine.ListOfOperation}" ValueBinding="TransportTime"/>
                 </telerik:RadCartesianChart.Series>
-            </telerik:RadCartesianChart>
-            <telerik:RadCartesianChart x:Name="chart">
-                <telerik:RadCartesianChart.HorizontalAxis>
-                    <telerik:CategoricalAxis/>
-                </telerik:RadCartesianChart.HorizontalAxis>
-
-                <telerik:RadCartesianChart.VerticalAxis>
-                    <telerik:LinearAxis/>
-                </telerik:RadCartesianChart.VerticalAxis>
-
-                <telerik:RadCartesianChart.Series>
-                    <telerik:BarSeries>
-                        <telerik:BarSeries.PointTemplates>
-                            <DataTemplate>
-                                <Rectangle Fill="Yellow"/>
-                            </DataTemplate>
-
-                            <DataTemplate>
-                                <Rectangle Fill="White"/>
-                            </DataTemplate>
-
-                            <DataTemplate>
-                                <Rectangle Fill="Green"/>
-                            </DataTemplate>
-
-                            <DataTemplate>
-                                <Rectangle Fill="Red"/>
-                            </DataTemplate>
-
-                            <DataTemplate>
-                                <Rectangle Fill="Gray"/>
-                            </DataTemplate>
-                        </telerik:BarSeries.PointTemplates>
-
-                        <telerik:BarSeries.DataPoints>
-                            <telerik:CategoricalDataPoint Category="1" Value="10"/>
-                            <telerik:CategoricalDataPoint Category="2" Value="4"/>
-                            <telerik:CategoricalDataPoint Category="3" Value="7"/>
-                            <telerik:CategoricalDataPoint Category="4" Value="11"/>
-                            <telerik:CategoricalDataPoint Category="5" Value="15"/>
-                        </telerik:BarSeries.DataPoints>
-                        
-                    </telerik:BarSeries>
-                    <telerik:BarSeries>
-                        <telerik:BarSeries.PointTemplates>
-                            <DataTemplate>
-                                <Rectangle Fill="Yellow"/>
-                            </DataTemplate>
-
-                            <DataTemplate>
-                                <Rectangle Fill="White"/>
-                            </DataTemplate>
-
-                            <DataTemplate>
-                                <Rectangle Fill="Green"/>
-                            </DataTemplate>
-
-                            <DataTemplate>
-                                <Rectangle Fill="Red"/>
-                            </DataTemplate>
-
-                            <DataTemplate>
-                                <Rectangle Fill="Gray"/>
-                            </DataTemplate>
-                        </telerik:BarSeries.PointTemplates>
-
-                        <telerik:BarSeries.DataPoints>
-                            <telerik:CategoricalDataPoint Category="1" Value="20"/>
-                            <telerik:CategoricalDataPoint Category="2" Value="4"/>
-                            <telerik:CategoricalDataPoint Category="3" Value="7"/>
-                            <telerik:CategoricalDataPoint Category="4" Value="11"/>
-                            <telerik:CategoricalDataPoint Category="5" Value="15"/>
-                        </telerik:BarSeries.DataPoints>
-
-                    </telerik:BarSeries>
-                </telerik:RadCartesianChart.Series>
-            </telerik:RadCartesianChart>
+        </telerik:RadCartesianChart>
         </StackPanel>
     </Grid>
 </UserControl>

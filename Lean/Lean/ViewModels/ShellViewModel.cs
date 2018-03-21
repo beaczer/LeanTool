@@ -100,6 +100,7 @@ namespace Lean {
         public ShellViewModel()
         {
             CurrentOperation = new Operation();
+            
             timer.Tick += new System.EventHandler(timer_Tick);
             YamazumiVM = new YamazumiViewModel(this);
             FilmVM = new FilmViewModel(this);
@@ -184,8 +185,9 @@ namespace Lean {
         }
         public void RemoveOperation(int name)
         {
-            CurrentLine.ListOfOperation.RemoveAt(name);
-            CurrentOperation = null;
+                CurrentLine.ListOfOperation.RemoveAt(name);
+                CurrentOperation = null;
+   
         }
         public void StartAnalyse(MediaElement me)
         {

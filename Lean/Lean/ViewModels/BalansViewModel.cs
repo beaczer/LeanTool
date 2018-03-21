@@ -42,19 +42,7 @@ namespace Lean.ViewModels
         //    };
         //}
 
-        private BindableCollection<Man> manSet = new BindableCollection<Man>();
-        public BindableCollection<Man> ManSet
-        {
-            get
-            {
-                return manSet;
-            }
-            set
-            {
-                manSet = value;
-                NotifyOfPropertyChange(() => ManSet);
-            }
-        }
+
         private ILine currentLine;
         public ILine CurrentLine
         {
@@ -72,51 +60,11 @@ namespace Lean.ViewModels
         public void Aktualizuj()
         {
             CurrentLine = shellVM.CurrentLine;
-            PrepareDate();
+
         }
         public BalansViewModel(ShellViewModel svm)
         {
             shellVM = svm;
-        }
-        public void PrepareDate()
-        {
-            if (CurrentLine != null)
-            {
-                int noPeople = 0;
-                ManSet = new BindableCollection<Man>();
-                foreach (var item in CurrentLine.ListOfOperation)
-                {
-                    foreach (var item1 in item.ListOfOperation)
-                    {
-                        noPeople = item1.Human;
-                    }
-                }
-                for (int i = 1; i < (noPeople + 1); i++)
-                {
-                    ManSet.Add(new Man(i));
-                }
-                foreach (var item in CurrentLine.ListOfOperation)
-                {
-                    foreach (var item1 in item.ListOfOperation)
-                    {
-                        foreach (var man in ManSet)
-                        {
-                            man.Czekanie = item.ListOfOperation.Where(x => x.Human == man.Id && x.ElementaryOperationType ==
-                              TypeOfOperation.Czekanie).Sum(x => x.AvgTime);
-                            Czekanie.Add(new ChartElement("Czekanie", man.Czekanie));
-                            man.Kontrola = item.ListOfOperation.Where(x => x.Human == man.Id && x.ElementaryOperationType ==
-                             TypeOfOperation.Kontrola).Sum(z => z.AvgTime);
-                            Czekanie.Add(new ChartElement("Kontrola", man.Kontrola));
-                            man.Niezdefiniowane = item.ListOfOperation.Where(x => x.Human == man.Id && x.ElementaryOperationType ==
-                            TypeOfOperation.Niezdefiniowane).Sum(z => z.AvgTime);
-                            man.ValueAdded = item.ListOfOperation.Where(x => x.Human == man.Id && x.ElementaryOperationType ==
-                            TypeOfOperation.ValueAdded).Sum(z => z.AvgTime);
-                            man.Trasport = item.ListOfOperation.Where(x => x.Human == man.Id && x.ElementaryOperationType ==
-                            TypeOfOperation.Transport).Sum(z => z.AvgTime);
-                        }
-                    }
-                }
-            }
         }
     }
 }
