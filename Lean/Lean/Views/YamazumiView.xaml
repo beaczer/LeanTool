@@ -8,22 +8,75 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="Rectangle">
+                <Setter Property="Width" Value="40"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Stroke" Value="Black"/>
+                <Setter Property="StrokeThickness" Value="1"/>
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+        </Grid.Resources>
         <StackPanel>
-            <telerik:RadCartesianChart x:Name="RadCartesianChart">
-            <telerik:RadCartesianChart.HorizontalAxis>
-                <telerik:CategoricalAxis  />
-            </telerik:RadCartesianChart.HorizontalAxis>
-            <telerik:RadCartesianChart.VerticalAxis>
-                <telerik:LinearAxis />
-            </telerik:RadCartesianChart.VerticalAxis>
-
-            <telerik:RadCartesianChart.Series>
-                <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding CurrentLine.ListOfOperation}"  ValueBinding="WaitingTime"/>
-                <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding CurrentLine.ListOfOperation}" ValueBinding="ControlTime"/>
-                    <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding CurrentLine.ListOfOperation}" ValueBinding="AVTime"/>
-                    <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding CurrentLine.ListOfOperation}" ValueBinding="TransportTime"/>
-                </telerik:RadCartesianChart.Series>
+            <telerik:RadCartesianChart x:Name="RadCartesianChart" MinHeight="450">
+                <telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:CategoricalAxis  />
+                </telerik:RadCartesianChart.HorizontalAxis>
+                <telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:LinearAxis />
+                </telerik:RadCartesianChart.VerticalAxis>
+                <telerik:RadCartesianChart.Series>
+                    <telerik:BarSeries CombineMode="Stack"   ItemsSource="{Binding CurrentLine.ListOfOperation}" 
+                                           ValueBinding="WaitingTime" >
+                        
+                        <telerik:BarSeries.DefaultVisualStyle>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Red" />
+                            </Style>
+                        </telerik:BarSeries.DefaultVisualStyle>
+                    </telerik:BarSeries>
+                    <telerik:BarSeries CombineMode="Stack"  ItemsSource="{Binding CurrentLine.ListOfOperation}" 
+                                           ValueBinding="ControlTime" >
+                        <telerik:BarSeries.DefaultVisualStyle>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="LightBlue" />
+                            </Style>
+                        </telerik:BarSeries.DefaultVisualStyle>
+                    </telerik:BarSeries>
+                    <telerik:BarSeries CombineMode="Stack"  ItemsSource="{Binding CurrentLine.ListOfOperation}" 
+                                           ValueBinding="AVTime">
+                        <telerik:BarSeries.DefaultVisualStyle>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Green" />
+                            </Style>
+                        </telerik:BarSeries.DefaultVisualStyle>
+                    </telerik:BarSeries>
+                    <telerik:BarSeries CombineMode="Stack"   ItemsSource="{Binding CurrentLine.ListOfOperation}" 
+                                           ValueBinding="TransportTime">
+                        <telerik:BarSeries.DefaultVisualStyle>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Orange" />
+                            </Style>
+                        </telerik:BarSeries.DefaultVisualStyle>
+                    </telerik:BarSeries>
+                    <!--<telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding Lista.ListaIN}" 
+                                           ValueBinding="MyProperty"/>-->
+                    </telerik:RadCartesianChart.Series>
         </telerik:RadCartesianChart>
+            <Border>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Waiting</Label>
+                    <Rectangle Fill="Red" />
+                    <Label>Added Value</Label>
+                    <Rectangle Fill="Green" />
+                    <Label>Transport</Label>
+                    <Rectangle Fill="Orange" />
+                    <Label>Control</Label>
+                    <Rectangle Fill="Blue" />
+
+                </StackPanel>
+            </Border>
         </StackPanel>
+        
     </Grid>
 </UserControl>

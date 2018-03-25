@@ -27,7 +27,7 @@ namespace Lean
             }
         }
         
-        public BindableCollection<FilmData> FilmDataCollection { get; set; } = new BindableCollection<FilmData>();
+        
 
         private BindableCollection<ElemTime> elementaryOperationTimes { get; set; } = new BindableCollection<ElemTime>();
         public BindableCollection<ElemTime> ElementaryOperationTimes

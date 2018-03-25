@@ -13,6 +13,18 @@ namespace Lean.ViewModels
     
     public class YamazumiViewModel : Screen, IObserwator
     {
+        public Test lista;
+        public Test Lista
+        {
+            get
+            { return lista; }
+            set
+            {
+                lista = value;
+                NotifyOfPropertyChange(() => Lista);
+            }
+        }
+        public List<Test> Lista1 { get; set; }
         private ShellViewModel shellVM;
         private ILine currentLine;
         public ILine CurrentLine
@@ -25,12 +37,21 @@ namespace Lean.ViewModels
             {
                 currentLine = value;
                 NotifyOfPropertyChange(() => CurrentLine);
-                NotifyOfPropertyChange(() => CurrentLine.ListOfOperation);
             }
         }
         public YamazumiViewModel(ShellViewModel svm)
         {
             shellVM = svm;
+            Lista = new Test();
+            
+        }
+        public void AddTest()
+        {
+            
+            Lista.ListaIN.Add(new Test2());
+  
+            Random rnd = new Random();
+            Lista.ListaIN[0].MyProperty = rnd.Next();
         }
         public void PrepareDate()
         {
