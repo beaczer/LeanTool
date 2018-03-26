@@ -10,44 +10,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <!--<ItemsControl x:Name="ListOfOperation" ItemsSource="{Binding CurrentLine.ListOfOperation}" HorizontalContentAlignment="Stretch">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <telerik:RadCartesianChart Palette="Windows8" >
-                        <telerik:RadCartesianChart.VerticalAxis>
-                            <telerik:CategoricalAxis/>
-                        </telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:RadCartesianChart.HorizontalAxis>
-                            <telerik:LinearAxis />
-                        </telerik:RadCartesianChart.HorizontalAxis>
-                        <telerik:RadCartesianChart.Series>
-                            <telerik:BarSeries>
-                                <telerik:BarSeries.DataPoints>
-                                    <telerik:CategoricalDataPoint Category="{Binding OperationName}" Value="{Binding Sum}" />
-                                </telerik:BarSeries.DataPoints>
-
-                            </telerik:BarSeries>
-                        </telerik:RadCartesianChart.Series>
-
-                    </telerik:RadCartesianChart>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>-->
-                <telerik:RadCartesianChart x:Name="RadCartesianChart" Palette="Windows8" >
-
-                    <telerik:RadCartesianChart.HorizontalAxis>
-                        <telerik:CategoricalAxis  />
-                    </telerik:RadCartesianChart.HorizontalAxis>
-
-                    <telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:LinearAxis />
-                    </telerik:RadCartesianChart.VerticalAxis>
-
-                    <telerik:RadCartesianChart.Series>
-                            <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding Czekanie}"  CategoryBinding="Category" ValueBinding="Count"/>
-                            <telerik:BarSeries CombineMode="Stack" ItemsSource="{Binding Kontrola}"  CategoryBinding="Category" ValueBinding="Count"/>
-                    </telerik:RadCartesianChart.Series>
-                </telerik:RadCartesianChart>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <ItemsControl ItemsSource="{Binding BalansDatas}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Name}"></TextBox>
+                            <TextBox Text="{Binding AVGTime}"></TextBox>
+                            <TextBox Text="{Binding OperatorNumber}"></TextBox>
+                            <TextBox Text="{Binding Order}"></TextBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
     </Grid>
 </UserControl>

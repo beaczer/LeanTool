@@ -8,10 +8,11 @@ using Caliburn.Micro;
 
 namespace Lean.Classes
 {
+    [Serializable]
     public class Operation : PropertyChangedBase,IOperation
     {
-        public int OperationId { get; private set; }
-        public string OperationName { get; private set; }
+        public int OperationId { get; set; }
+        public string OperationName { get; set; }
         public BindableCollection<CycleAnalyse> CycleAnalyses { get; set; } = new BindableCollection<CycleAnalyse>();
         public BindableCollection<FilmCycleCollection> FCycleCollection { get; set; } = new BindableCollection<FilmCycleCollection>();
         private double waitingTime;

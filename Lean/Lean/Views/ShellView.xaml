@@ -84,7 +84,7 @@
                             </i:Interaction.Triggers>
                             <Image Source="/Lean;component/icons/loadFile.png"  />
                         </telerik:RadRibbonButton>
-                        <telerik:RadRibbonButton Text="Save analyse" >
+                        <telerik:RadRibbonButton Text="Save analyse" cal:Message.Attach="[Event Click]=[Action SaveData]" >
                             <Image Source="/Lean;component/icons/loadFile.png"  />
                         </telerik:RadRibbonButton>
                     </telerik:RadRibbonGroup>

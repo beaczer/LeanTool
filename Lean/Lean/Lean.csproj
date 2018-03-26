@@ -114,11 +114,13 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Classes\Analyse.cs" />
+    <Compile Include="Classes\BalansData.cs" />
     <Compile Include="Classes\CycleAnalyse.cs" />
     <Compile Include="Classes\ElemTime.cs" />
     <Compile Include="Classes\FilmCycleCollection.cs" />
     <Compile Include="Classes\FilmOperationCollection.cs" />
     <Compile Include="Classes\FilmTimer.cs" />
+    <Compile Include="Classes\IBalansData.cs" />
     <Compile Include="Classes\Operator.cs" />
     <Compile Include="Classes\test.cs" />
     <Compile Include="Converters\VisibleToHiddenConv.cs" />

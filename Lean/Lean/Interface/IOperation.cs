@@ -4,6 +4,7 @@ namespace Lean.Classes
 {
     public interface IOperation
     {
+         string OperationName { get; set; }
          BindableCollection<ElementaryOperation> ListOfOperation { get; set; }
          BindableCollection<CycleAnalyse> CycleAnalyses { get; set; }
          BindableCollection<FilmCycleCollection> FCycleCollection { get; set; }

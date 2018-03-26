@@ -10,7 +10,7 @@ namespace Lean
 {
     public enum TypeOfOperation {Niezdefiniowane, Czekanie, Kontrola, ValueAdded,Transport }
 
-    public class ElementaryOperation :Screen
+    public class ElementaryOperation :PropertyChangedBase
     {
         public int OperationId { get; set; }
         private string operationName;
@@ -43,7 +43,6 @@ namespace Lean
                 NotifyOfPropertyChange(() => MinTime);
                 NotifyOfPropertyChange(() => MaxTime);
                 NotifyOfPropertyChange(() => AvgTime);
-
             }
         } 
         public TypeOfOperation ElementaryOperationType { get; set; }
@@ -144,6 +143,33 @@ namespace Lean
             MaxTime = ElementaryOperationTimes.Select(x=>x.Time).Max();
             AvgTime = ElementaryOperationTimes.Select(x=>x.Time).Average();
             Stability = MaxTime - MinTime;
+        }
+    }
+    [Serializable]
+    public class ElementaryOperationToSave
+    {
+        public int OperationId;
+        public string OperationName;
+        public BindableCollection<ElemTime> ElementaryOperationTimes;
+        public TypeOfOperation ElementaryOperationType;
+        public double AvgTime;
+        public double MinTime;
+        public double MaxTime;
+        public double Freq;
+        public double Stability;
+
+        public ElementaryOperationToSave(int operId, string operName, BindableCollection<ElemTime> elem,
+                TypeOfOperation Eleme, double avg, double min, double max, double freq, double stab)
+        {
+            this.OperationId = operId;
+            this.OperationName = operName;
+            this.ElementaryOperationTimes = elem;
+            this.ElementaryOperationType = Eleme;
+            AvgTime = avg;
+            MinTime = min;
+            MaxTime = max;
+            Freq = freq;
+            Stability = stab;
         }
     }
 }

@@ -97,4 +97,25 @@ namespace Lean.Classes
         }
         
     }
+    [Serializable]
+    public class FilmOperationCollectionToSave
+    {
+        public int OperationId;
+        public string OperationName;
+        public bool On;
+        public double StartTime;
+        public double StopTime;
+        public double Time;
+        public FilmOperationCollectionToSave(int id,string name,bool on,double startT,double stopT, double T)
+        {
+            OperationId = id;
+            OperationName = name;
+            On = on;
+            StartTime = startT;
+            StopTime = stopT;
+            Time = T;
+        }
+
+    }
+
 }

@@ -23,26 +23,9 @@ namespace Lean.ViewModels
     }
     public class BalansViewModel : Screen, IObserwator
     {
+        public BindableCollection<IBalansData> BalansDatas { get; set; } = new BindableCollection<IBalansData>();
+        public BindableCollection<CycleAnalyse> ElementaryOperations { get; set; } = new BindableCollection<CycleAnalyse>();
         private ShellViewModel shellVM { get; set; }
-        public BindableCollection<ChartElement> Czekanie { get; set; } = new BindableCollection<ChartElement>();
-        public BindableCollection<ChartElement> Kontrola { get; set; } = new BindableCollection<ChartElement>();
-
-        //private void GetData()
-        //{
-        //    Data1 = new BindableCollection<ChartElement>() {
-        //     new ChartElement() { Category="KIT" , Count=1},
-        //     new ChartElement() { Category="SLEEPER SUIT" , Count=8},
-        //     new ChartElement() { Category="KIT 2" , Count=6},
-        //    };
-
-        //    Data2 = new BindableCollection<ChartElement>() {
-        //     new ChartElement() { Category="KIT" , Count=4},
-        //     new ChartElement() { Category="SLEEPER SUIT" , Count=9},
-        //     new ChartElement() { Category="KIT 2" , Count=3},
-        //    };
-        //}
-
-
         private ILine currentLine;
         public ILine CurrentLine
         {
@@ -60,7 +43,22 @@ namespace Lean.ViewModels
         public void Aktualizuj()
         {
             CurrentLine = shellVM.CurrentLine;
-
+            //ElementaryOperations = new BindableCollection<CycleAnalyse>();
+            
+            int count = 1;
+            int ord = 1;
+            if (CurrentLine != null)
+            {
+                foreach (var item in CurrentLine.ListOfOperation)
+                {
+                    foreach (var item2 in item.CycleAnalyses)
+                    {
+                        BalansDatas.Add(new BalansData(item2, item2.AvarageCycle,count, ord,item2.Name,item2.Id));
+                        ord++;
+                    }
+                    count++;
+                }
+            }
         }
         public BalansViewModel(ShellViewModel svm)
         {

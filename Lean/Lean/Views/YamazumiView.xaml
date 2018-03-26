@@ -39,7 +39,7 @@
                                            ValueBinding="ControlTime" >
                         <telerik:BarSeries.DefaultVisualStyle>
                             <Style TargetType="Border">
-                                <Setter Property="Background" Value="LightBlue" />
+                                <Setter Property="Background" Value="Blue" />
                             </Style>
                         </telerik:BarSeries.DefaultVisualStyle>
                     </telerik:BarSeries>

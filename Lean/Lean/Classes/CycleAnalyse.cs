@@ -68,7 +68,9 @@ namespace Lean.Classes
         public double MaxCycle
         {
             get
-            { return maxCycle; }
+            {
+                return maxCycle;
+            }
             set
             {
                 maxCycle = Math.Round(value, 2);
@@ -81,7 +83,7 @@ namespace Lean.Classes
             Name = name;
             list.CollectionChanged += CollectionChange;
         }
-
+        
         private void CollectionChange(object sender, NotifyCollectionChangedEventArgs e)
         {
             AvarageCycle = list.Average();
@@ -89,4 +91,26 @@ namespace Lean.Classes
             MaxCycle = list.Max();
         }
     }
+    [Serializable]
+    public class CycleAnalyseToSave
+    {
+        public TypeOfOperation OperationType;
+        public int Id;
+        public string Name;
+        public BindableCollection<double> list;
+        public double AvarageCycle;
+        public double MinCycle;
+        public double MaxCycle;
+        public CycleAnalyseToSave(int id,TypeOfOperation too, string name, BindableCollection<double>list,double avg, double min, double max)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.list = list;
+            this.AvarageCycle = avg;
+            this.MinCycle = min;
+            this.MaxCycle = max;
+            OperationType = too;
+        }
+    }
+
 }
