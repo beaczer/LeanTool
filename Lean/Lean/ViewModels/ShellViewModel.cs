@@ -316,52 +316,15 @@ namespace Lean {
         public void SaveData()
         {
             BinaryFormatter bf = new BinaryFormatter();
-            //DataToSave dt = new DataToSave(currentLine.LineName);
-            
-            //using (Stream fStream = new FileStream("lineInfo.txt", FileMode.Create, FileAccess.Write, FileShare.None))
-            //{
-            //    bf.Serialize(fStream, dt);
-            //}
+            using (Stream fStream = new FileStream("lineInfo.txt", FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                //bf.Serialize(fStream, lis);
+            }
         }
-    }
-    [Serializable]
-    public class DataToSave
-    {
-        string LineName;
-        BindableCollection<ElementaryOperationToSave> ListOfOperation = new BindableCollection<ElementaryOperationToSave>();
-        public BindableCollection<CycleAnalyseToSave> CycleAnalyses { get; set; } = new BindableCollection<CycleAnalyseToSave>();
-        public BindableCollection<FilmCycleCollectionToSave> FCycleCollection { get; set; } = new BindableCollection<FilmCycleCollectionToSave>();
 
-        public DataToSave(string name,BindableCollection<ElementaryOperation> list, BindableCollection<CycleAnalyse> CycleAnalyses,
-                         BindableCollection<FilmCycleCollection> FCycleCollection)
-        {
-            LineName = name;
-            foreach (var item in CycleAnalyses)
-            {
-                this.CycleAnalyses.Add(new CycleAnalyseToSave(item.Id, item.OperationType, item.Name, item.list, item.AvarageCycle, item.MinCycle, item.MaxCycle));
-            }
-            foreach (var item in FCycleCollection)
-            {
-                this.FCycleCollection.Add(new FilmCycleCollectionToSave(item.FCCId, item.FOperationCollection));
-            }
-            foreach (var item in list)
-            {
-                ListOfOperation.Add(new ElementaryOperationToSave(item.OperationId, item.OperationName, item.ElementaryOperationTimes, item.ElementaryOperationType,
-                    item.AvgTime, item.MinTime, item.MaxTime, item.Freq, item.Stability));
-            }
-        }
     }
-    class OperationToSave
-    {
-        public BindableCollection<ElementaryOperationToSave> ListOfOperation { get; set; } = new BindableCollection<ElementaryOperationToSave>();
-        public BindableCollection<CycleAnalyse> CycleAnalyses { get; set; } = new BindableCollection<CycleAnalyse>();
-        public BindableCollection<FilmCycleCollection> FCycleCollection { get; set; } = new BindableCollection<FilmCycleCollection>();
-        public double WaitingTime { get; set; }
-        public double AVTime { get; set; }
-        public double ControlTime { get; set; }
-        public double TransportTime { get; set; }
-        public string OperationName { get; set; }
-    }
+    
+    
 }
 
 

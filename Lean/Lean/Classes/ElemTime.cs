@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Lean.Classes
 {
-    public class ElemTime:Screen
+    [Serializable]
+    public class ElemTime
     {
+       
 
         public int ElemId { get; set; }
         private double time;
@@ -21,7 +23,7 @@ namespace Lean.Classes
             set
             {
                 time = value;
-                NotifyOfPropertyChange(() => Time);
+             //   NotifyOfPropertyChange(() => Time);
             }
         }
         

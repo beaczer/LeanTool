@@ -7,7 +7,8 @@ using Caliburn.Micro;
 
 namespace Lean.Classes
 {
-    public class FilmCycleCollection:PropertyChangedBase
+    [Serializable]
+    public class FilmCycleCollection
     {
         public int FCCId { get; set; }
         public BindableCollection<FilmOperationCollection> FOperationCollection { get; set; } = new BindableCollection<FilmOperationCollection>();
@@ -36,16 +37,5 @@ namespace Lean.Classes
             }
         }
     }
-    [Serializable]
-    public class FilmCycleCollectionToSave
-    {
-        public int FCCId { get; set; }
-        public BindableCollection<FilmOperationCollection> FOperationCollection { get; set; } = new BindableCollection<FilmOperationCollection>();
-
-        public FilmCycleCollectionToSave(int id, BindableCollection<FilmOperationCollection> fOC)
-        {
-            FCCId = id;
-            FOperationCollection = fOC;
-        }
-    }
+    
     }

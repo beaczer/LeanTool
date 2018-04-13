@@ -121,6 +121,8 @@
     <Compile Include="Classes\FilmOperationCollection.cs" />
     <Compile Include="Classes\FilmTimer.cs" />
     <Compile Include="Classes\IBalansData.cs" />
+    <Compile Include="Classes\LineConverter.cs" />
+    <Compile Include="Classes\LineToSave.cs" />
     <Compile Include="Classes\Operator.cs" />
     <Compile Include="Classes\test.cs" />
     <Compile Include="Converters\VisibleToHiddenConv.cs" />

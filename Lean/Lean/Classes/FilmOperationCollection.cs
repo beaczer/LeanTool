@@ -115,6 +115,15 @@ namespace Lean.Classes
             StopTime = stopT;
             Time = T;
         }
+        public FilmOperationCollectionToSave(FilmOperationCollection a)
+        {
+            OperationId = a.OperationId;
+            OperationName = a.OperationName;
+            On = a.On;
+            StartTime = a.StartTime;
+            StopTime = a.StopTime;
+            Time = a.Time;
+        }
 
     }
 
